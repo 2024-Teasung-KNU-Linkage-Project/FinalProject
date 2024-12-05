@@ -1,0 +1,314 @@
+.tab-pane-content {           /* 레이아웃 */
+    width: 100%;
+    height: 80%;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 4fr 1fr; 
+    gap: 0px 1vw; 
+    grid-template-areas: 
+      "l c r1"
+      "l c r2"
+      "l c r3";
+}
+
+#tab4-left {            /* 악취기여물질 */
+    grid-area: l;
+}
+/* 그리드 컴포넌트 구성 */
+.grid-info {
+    width: 25vw;
+    margin-top: 1.5vh;
+    padding: 0.5vw;
+    padding-left: 1vw;
+    text-align: justify;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: white;
+    background-color: #1A305F;
+    border: none;
+    cursor: pointer;
+}
+.grid-info-right{
+    width: 51vw;
+    margin-top: 1.5vh;
+    padding: 0.5vw;
+    padding-left: 1vw;
+    text-align: justify;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: white;
+    background-color: #1A305F;
+    border: none;
+    cursor: pointer;
+}
+.grid-component {
+    width: 25vw;
+    height: 69vh;
+    margin: 0 !important;
+    padding: 0;
+    text-align: center;
+    font-size: 1.5rem;
+    color: white;
+    background-color: #03153A;
+}
+/* 악취기여물질, 방해인자 부분 */
+#grid-component-left{
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    align-items: center;
+    padding: 0;
+    overflow-y: scroll;
+}
+#grid2-component-center{
+    display: flex;
+    gap: 2%;
+    padding-left: 1vw;
+    /* overflow-y: scroll; */
+}
+/* 검색창 */
+.search-bar {
+    width: 100%;
+    height: 26px;
+    display: flex;
+    margin-top: 15px;
+    padding: 0;
+    justify-content: center;
+}
+
+/* 표 관련 */
+.table-component {
+    width: 22vw;
+    margin: 0 !important;
+    padding: 1%;
+    font-size: 1.3rem;
+    color: white;
+    background-color: #03153A;
+}
+.table-head {
+    width: 100%;
+    height: 60px;
+}
+.table-head td {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+/* 화합물 항목별 */
+.factor-category-name {
+    display: block;
+    text-align: left;
+    margin-bottom: 1vh;
+    color:#fff;
+    cursor:pointer;
+    font-size: 1.5rem;
+}
+.factor-table td {
+    background-color: #1A305F;
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+/* 열 간격 */
+.factor-name {
+    width: 10vw;
+    height: 3.5vh;
+}
+.value-width-4 {
+    width: 4vw;
+}
+.value-width-6 {
+    width: 6vw;
+}
+
+/* 입력 열 */
+.factor-input {
+    width: 100%;
+    height: 3vh;
+    color: white;
+    background-color: #1A305F;
+    text-align: center;
+    border: none;
+}
+
+/* 버튼 디자인 */
+.tab4-btn {
+    font-size: 1.3rem;
+    color: white;
+    background-color: black;
+    border-color: white;
+}
+
+.grid2-info {
+    width: 51vw;
+    margin-top: 1.5vh;
+    padding: 0.5vw;
+    padding-left: 1vw;
+    text-align: justify;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: white;
+    background-color: #1A305F;
+    border: none;
+    cursor: pointer;
+}
+.grid2-info .dropdown-btn{
+    color: white;
+    width: 30vw;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #1A305F;
+    border: none;
+    cursor: pointer;
+    text-align: justify;
+}
+.grid2-info .bi {
+    padding-left: 12.5vw;
+}
+.grid2-component {
+    width: 51vw;
+    height: 90%;
+    margin: 0 !important;
+    padding: 0;
+    font-size: 1.5rem;
+    color: white;
+    background-color: #03153A;
+}
+.grid2-component .detail-table {
+    background-color: #1A305F;
+    max-height: 28vh;
+    border-radius: 5px 5px 5px 5px;
+    overflow-y: scroll;
+    padding: 1vw;
+    text-align: left;
+}
+.grid2-component thead {
+    color: #99AABC !important;
+}
+.grid2-component thead td {
+    width: 150px;
+    padding-bottom: 5px;
+}
+.grid2-component tbody td {
+    border: 1px solid mediumblue;
+    padding: 3px;
+}
+.grid2-component p {
+    padding-left: 5px;
+    padding-bottom: 3px;
+    padding-top: 2vh;
+    color: #99AABC;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: left;
+    pointer-events : none;
+}
+/* 검색창 */
+.grid2-component .search-bar {
+    width: 100%;
+    height: 26px;
+    display: flex;
+    margin-top: 15px;
+    padding: 0;
+    justify-content: left;
+    padding-left: 1vw;
+}
+
+.tab4-info-table {
+    width: 51vw;
+    background-color: #03153A;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 2vh;
+    height: 94%;
+    margin: 0 !important;
+    border-color: white;
+    border-collapse: collapse;
+}
+.tab4-info-table thead {
+    color: #99AABC !important;
+}
+.tab4-info-table thead td {
+    width: 150px;
+    padding-bottom: 5px;
+}
+.tab4-info-table td {
+    border: 1px solid mediumblue;
+    padding: 3px;
+}
+.tab4-info-table p {
+    padding-left: 5px;
+    padding-bottom: 3px;
+    color: #99AABC;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: left;
+    pointer-events : none;
+}
+.tab4-info-table .detail-table {
+    background-color: #1A305F;
+    height: 26.5vh;
+    border-radius: 5px 5px 5px 5px;
+    overflow-y: scroll;
+    padding: 1vw;
+    border-color: white;
+}
+.tab4-info-table .detail-table .cost{
+    margin-bottom: 2vh;
+}
+.tab4-info-table .detail-table .cost th{
+    width: 50%;
+}
+.tab4-info-table .detail-table table {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    white-space:nowrap;
+    border-collapse:collapse;
+}
+.tab4-info-table .detail-table th {
+    border-color: white;
+    height: 5vh;
+}
+.tab4-info-table .detail-table td {
+    border-color: white;
+    height: 5vh;
+}
+.tab4-info-table .detail-table .effective .component{
+    width: 40%;
+}
+.tab4-info-table .detail-table .effective td{
+    width: 30%;
+}
+/* 방지시설 select 디자인 */
+.tab4-info-table select {
+    margin-bottom: 2vh;
+    width: 60%;
+    height: 2.5vh;
+}
+.tab4-info-table input{
+    width: 100%;
+    height: 3vh;
+    color: white;
+    background-color: #1A305F;
+    text-align: center;
+    border: none;
+    font-weight: bold;
+}
+.tab4-info-table button {
+    border-radius: 5px 5px 5px 5px;
+    color: white; 
+    margin-left: 10px;
+    float: right;
+    background-color: #03153A;
+    border-color: white;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 1vh 3vw;
+}
+#waterSolubility {
+    background-color: #1A305F;
+    border-color: #1A305F;
+    color: white;
+}

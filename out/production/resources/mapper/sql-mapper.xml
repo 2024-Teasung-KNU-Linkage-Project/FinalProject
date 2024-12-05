@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.OdorPreventSystem.domain.mapper.OdorProofSystemMapper">
+
+	<select id="selectInpList" resultType="com.OdorPreventSystem.domain.solution.inputFactor.dto.InputFactorDto$Entity">
+        select s.idx, s.name, threshold, waterSolubility, c.name as category
+            from OdorSubstance s join OdorCategory c on category = c.idx;
+	</select>
+	
+	<select id="selectCategoryList" resultType="String">
+		select name from OdorCategory;
+	</select>
+	
+	<select id="selectInfList" resultType="com.OdorPreventSystem.domain.solution.inputFactor.dto.InterferenceFactorDto$Response">
+		select idx, name
+			from InterferenceFactor;
+	</select>
+
+	<select id="selectAddList" resultType="com.OdorPreventSystem.domain.solution.inputFactor.dto.AdditionalFeatureDto$Response">
+		select idx, name
+			from AdditionalFeature;
+	</select>
+	
+	<select id="selectFacilityList" resultType="com.OdorPreventSystem.domain.solution.predict.dto.FacilityDto$Entity">
+		select idx as fac_idx, name, image as imagesrc, priority, requiredAdditional as requiredAdditionalFeature, basePrice as costBase, priceByWind as costByWind, category
+			from OdorPreventionFacility;
+	</select>
+	
+	<select id="selectAddName" parameterType="Integer" resultType="String">
+		select name from AdditionalFeature
+			where #{idx}=idx;
+	</select>
+	
+	<select id="selectInfConditionByIdx" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.predict.dto.FacilityConditionDto$RefCondition">
+		select interference as var1, operator as op, operand as var2 from InterferenceCondition
+			where InterferenceCondition.facility=(select idx from OdorPreventionFacility where idx=#{idx}); 
+	</select>
+	
+	<select id="selectInpConditionByIdx" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.predict.dto.FacilityConditionDto$RefCondition">
+		select odor as var1, operator as op, operand as var2 from OdorCondition oc
+			where oc.facility=(select idx from OdorPreventionFacility where idx=#{idx}); 
+	</select>
+	
+	<select id="selectInpCatg" parameterType="Integer" resultType="Integer">
+		select category from OdorSubstance o
+			where #{idx}=o.idx;
+	</select>
+	
+	<select id="selectTargetFactor" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.predict.dto.FacilityConditionDto$TargetFactor">
+		select odor as inp_idx from RemovalOdor
+			where #{idx}=facility;
+	</select>
+	
+	<select id="selectUsableFacInf" parameterType="Integer" resultType="Integer">
+		select facility as fac_idx from RemovalEfficiency e join RemovalInterference on efficiency=e.idx
+			where #{inf_idx}=interference
+	</select>
+	
+	<select id="selectUsableFacWaterSoluble" resultType="Integer">
+		select facility as fac_idx from RemovalWaterSolubility join RemovalEfficiency e on efficiency=e.idx
+			where waterSolubility=1;
+	</select>
+	
+	<select id="selectUsableFacWaterUnsoluble" resultType="Integer">
+		select facility as fac_idx from RemovalWaterSolubility join RemovalEfficiency e on efficiency=e.idx
+			where waterSolubility=0;
+	</select>
+	
+	<select id="selectInfEff" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.predict.dto.FacilityEfficiency$InfEff">
+		select interference as inf_idx, efficiency1, efficiency2, efficiency3 from RemovalEfficiency e join RemovalInterference on efficiency=e.idx
+			where #{idx}=e.facility;
+	</select>
+	
+	<select id="selectInpEff" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.predict.dto.FacilityEfficiency$InpEff">
+		select waterSolubility as target, efficiency1, efficiency2, efficiency3 from RemovalWaterSolubility join RemovalEfficiency e on efficiency=e.idx
+			where #{idx}=e.facility;
+	</select>
+	
+	<select id="isCO2" parameterType="Integer" resultType="Boolean">
+		select if((select name from OdorSubstance where idx=#{idx})='이산화탄소', true, false);
+	</select>
+
+	<select id="getMsv" resultType="com.OdorPreventSystem.domain.trackingByCar.dto.chemicalDataDTO">
+		SELECT name AS chemicalName , msv AS chemicalValue FROM msv
+		WHERE name = #{chemicalName}
+	</select>
+
+	<!-- 사업체 데이터 -->
+	<select id="getplace" resultType="com.OdorPreventSystem.domain.trackingByCar.dto.placeDataDTO">
+		SELECT lat AS latitude, lon AS longitude, id AS SourceId, name, csv_filename AS csvFilename , odor
+		FROM company </select>
+
+	<select id="searchPlace" resultType="String">
+		SELECT name
+		FROM company
+		WHERE name LIKE CONCAT(#{name}, '%')
+	</select>
+
+	<select id="getCarCsvContent" resultType="com.OdorPreventSystem.domain.trackingByCar.dto.chemicalDataDTO">
+		SELECT chemical_name AS chemicalName, chemical_value AS chemicalValue, msv
+		from car_csv WHERE name = #{fileName};
+	</select>
+
+	<select id="getPlaceCsvContent" resultType="com.OdorPreventSystem.domain.trackingByCar.dto.chemicalDataDTO">
+		SELECT name AS name, chemical_name AS chemicalName, chemical_value AS chemicalValue, msv
+		from company_csv WHERE name = #{fileName};
+	</select>
+
+	<select id="getPlaceCsvContentByCompany" resultType="com.OdorPreventSystem.domain.trackingByCar.dto.chemicalDataDTO">
+		SELECT name AS name, chemical_name AS chemicalName, chemical_value AS chemicalValue, msv
+		from company_csv WHERE company_id = #{companyIndex};
+	</select>
+
+	<select id="getCar" resultType="com.OdorPreventSystem.domain.trackingByCar.dto.carDTO">
+		SELECT id AS carId, lat AS latitude , lon AS longitude, date , wind_direction as windDirection , csv_filename AS csvFilename
+		FROM car_detail
+		WHERE date BETWEEN #{startTime} AND #{endTime} AND car_code like #{selectCar}
+	</select>
+
+	<select id="getCarLocation" resultType="com.OdorPreventSystem.domain.trackingByCar.vo.location">
+		SELECT  lat AS latitude , lon AS longitude
+		FROM car_sift
+		WHERE date BETWEEN #{startTime} AND #{endTime} AND car_code like #{selectCar}
+	</select>
+
+	<select id="getGPSDate" resultType="String">
+		SELECT DATE_FORMAT(date, '%Y-%m-%d') AS reg_date
+		FROM car_sift
+		WHERE car_code = #{carCode}
+		GROUP BY reg_date
+		ORDER BY reg_date DESC;
+	</select>
+
+	<select id="getRealtimeCar" resultType="com.OdorPreventSystem.domain.trackingByCar.dto.carDTO">
+		SELECT id AS carId, lat AS latitude, lon AS longitude, date, wind_direction AS windDirection, csv_filename AS csvFilename
+		FROM car_detail
+		WHERE date BETWEEN #{startTime} AND #{endTime}
+		  AND car_code LIKE #{selectCar}
+		  AND date > #{lastQueryTime}
+	</select>
+
+	<select id="getRealtimeCarLocation" resultType="com.OdorPreventSystem.domain.trackingByCar.vo.location">
+		SELECT  lat AS latitude , lon AS longitude
+		FROM car_sift
+		WHERE date BETWEEN #{startTime} AND #{endTime}
+		  AND car_code LIKE #{selectCar}
+		  AND date > #{lastQueryTime}
+	</select>
+</mapper>

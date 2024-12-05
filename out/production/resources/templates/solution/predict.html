@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>방지시설 예측</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/page5.css">                   <!-- page5.css 추가 -->
+        <link rel="stylesheet" href="/css/nav.css">                     <!-- nav.css 추가 -->
+        <link rel="stylesheet" href="/css/header.css">                  <!-- header.css 추가 -->
+        <link rel="stylesheet" href="/css/loading.css">                 <!-- loading.css 추가 -->
+        <link rel="stylesheet" type="text/css" href="/css/tab2.css">    <!-- tab2.css 추가 -->
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/15c732f225.js" crossorigin="anonymous"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var currentUrl = window.location.pathname;
+                var lastChar = currentUrl.charAt(currentUrl.length - 1);
+                var itemId = "item" + lastChar;
+                // var navItem = document.getElementById(itemId);
+                // navItem.classList.add("nav-item-on");
+            });
+           
+            window.onload = function() {
+            var message = /*[[${errorMessage}]]*/ null;
+            if (message) {
+                alert(message);
+            }
+        };
+        </script>
+    </head>
+    <body>
+         <!-- 로딩스피너 -->
+        <div id="loading-spinner" style="display: none;">
+            <div  class="spinner">
+                <div class="ring"></div>
+                <p>
+                    <span>loading...</span>
+                    <br>
+                    <span>데이터를 가져오고 있습니다</span>
+                </p>
+            </div>
+        </div>
+
+        <nav th:replace="~{solution/header}"></nav>
+        <!-- <nav th:replace="~{common/topnav}"></nav> -->
+
+        <div class="contents">
+            <div th:replace="~{solution/leftnav}"></div>
+            <div class="container mt-5" style="margin-top: 0 !important;">
+                <nav th:replace="~{solution/tabnav}"></nav>
+
+                <!-- tab2: 예측설비 탭 -->
+                <div class="tab-content mt-3" style="margin-top: 0 !important;">
+                    <div class="container-mt-5" style="height: 90%; overflow-y: scroll;">
+                        <div class="row">
+                            <div class="cal-3">
+                                <div class="tab2-info">
+                                    <button class="dropdown-btn" style="padding-left: 30px;">입력인자</button>
+                                    
+                                </div>
+                                <div class="tab2-info-table" style="display: flex; height: 80%;">
+                                  <div style="overflow: auto; margin-bottom: 5px; display: flex;">
+                                    <div class="company-info" style="margin: 0px 10px; padding: 10px; width: 15vw;"> 
+                                        <p class="tab2-title"> > 검색 정보</p>
+                                        <div class="table-company">
+                                            <table style="width: 100%; margin-bottom: 30px; background-color: #1a305f;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="company-outlet"> </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table style="width: 100%; font-size: 13px;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="background-color: #1a305f;"> 전체희석배수</td>
+                                                        <td>
+                                                                <span th:if="${inputdata.dilutionFactor != null}" th:text="${inputdata.dilutionFactor}"></span>
+                                                                <span th:if="${inputdata.dilutionFactor == null}" th:text="'0.0'"></span>
+                                                        </td> 
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="background-color: #1a305f;"> 목표희석배수</td>
+                                                        <td >
+                                                            <span th:if="${inputdata.targetDilutionFactor != null}" th:text="${inputdata.targetDilutionFactor}"></span>
+                                                            <span th:if="${inputdata.targetDilutionFactor == null}" th:text="'0.0'"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="background-color: #1a305f;"> 풍량 </td>
+                                                        <td >
+                                                            <span th:if="${inputdata.wind != null}" th:text="${inputdata.wind}"></span>
+                                                             <span th:if="${inputdata.wind == null}" th:text="'0.0'"></span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>  
+                                        </div>
+                                    </div>
+                                    <div class="search-inp" style="margin: 0px 10px; padding: 10px; width: 40vw;">
+                                         <p class="tab2-title"> > 악취기여물질</p>
+                                       <div style="display: flex; gap: 30px;">
+                                        <div> <p>▼ 질소화합물</p>
+                                            <table class="factor-table" th:if="${not #lists.isEmpty(inputdata.inplist[0])}">
+                                                <thead>
+                                                  <tr>
+                                                    <td class="factor-component"> 성 분</td>
+                                                    <td class="factor-value">농도(ppm)</td>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr th:each="factor : ${inputdata.inplist[0]}" th:if="${factor.value != 0}">
+                                                        <td th:text="${factor.name}"></td>
+                                                        <td th:text="${factor.value}"></td>
+                                                  </tr>
+                                                  </tbody>
+                                              </table>
+                                            <br/>
+                                            <p>▼ 황화합물</p>
+                                            <table class="factor-table" th:if="${not #lists.isEmpty(inputdata.inplist[1])}">
+                                                <thead>
+                                                  <tr>
+                                                    <td class="factor-component"> 성 분</td>
+                                                    <td class="factor-value">농도(ppm)</td>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr th:each="factor : ${inputdata.inplist[1]}" th:if="${factor.value != 0}">
+                                                        <td th:text="${factor.name}"></td>
+                                                        <td th:text="${factor.value}"></td>
+                                                    </tr>
+                                                  </tbody>
+                                              </table>
+                                        </div>
+                                        <div>
+                                            <p>▼ 휘발성 유기화합물</p>
+                                            <table class="factor-table" th:if="${not #lists.isEmpty(inputdata.inplist[2])}">
+                                                <thead>
+                                                  <tr>
+                                                    <td class="factor-component"> 성 분</td>
+                                                    <td class="factor-value">농도(ppm)</td>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr th:each="factor : ${inputdata.inplist[2]}" th:if="${factor.value != 0}">
+                                                        <td th:text="${factor.name}"></td>
+                                                        <td th:text="${factor.value}"></td>
+                                                    </tr>
+                                                  </tbody>
+                                              </table>
+                                        </div>
+                                        <div>
+                                            <p>▼ 알데하이드</p>
+                                            <table class="factor-table" th:if="${not #lists.isEmpty(inputdata.inplist[3])}">
+                                                <thead>
+                                                  <tr>
+                                                    <td class="factor-component">성 분 </td>
+                                                    <td class="factor-value">농도(ppm)</td>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr th:each="factor : ${inputdata.inplist[3]}" th:if="${factor.value != 0}">
+                                                        <td th:text="${factor.name}"></td>
+                                                        <td th:text="${factor.value}"></td>
+                                                    </tr>
+                                                  </tbody>
+                                              </table>
+                                            <br/>
+                                            <p>▼ 온실가스</p>
+                                            <table class="factor-table" th:if="${not #lists.isEmpty(inputdata.inplist[4])}">
+                                                <thead>
+                                                  <tr>
+                                                    <td class="factor-component"> 성 분</td>
+                                                    <td class="factor-value">농도(ppm)</td>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr th:each="factor : ${inputdata.inplist[4]}" th:if="${factor.value != 0}">
+                                                        <td th:text="${factor.name}"></td>
+                                                        <td th:text="${factor.value}"></td>
+                                                    </tr>
+                                                </tbody>
+                                              </table>
+                                        </div>
+                                       </div>
+ 
+                                    </div>
+                                    <div class="search-inf" style="margin: 0px 10px; padding: 10px; width: 15vw;"> 
+                                        <p class="tab2-title"> > 방해인자</p>
+                                        <div>                                             
+                                            <table class="factor-table">
+                                                <thead>
+                                                  <tr>
+                                                    <td style="width: 400px;">항 목</td>
+                                                    <td style="width: 100px;">실측값(ppm) </td>
+                                                    <td style="width: 100px;">목표값(ppm) </td>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="factor : ${inputdata.inflist}" th:if="${factor.Value != 0}">
+                                                        <td th:text="${factor.name}"></td>
+                                                        <td th:text="${factor.Value}"></td>
+                                                        <td th:text="${factor.targetValue}"></td>
+                                                    </tr>  
+                                                </tbody>
+                                            </table>                                             
+                                        </div> 
+                                    </div>
+                                  </div>  
+                                </div>
+                            
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="tab2-info">
+                                    <button class="dropdown-btn">방지시설</button>
+                                </div>
+                                <div class="tab2-info-table">
+                                    <div class="preprocessing-table" style="float: left; width: 25%; padding-right: 2vw;">
+                                        <p>전처리시설</p>
+                                        <div class="detail-table" style="margin-bottom: 2vh">
+                                            <form id="form-pre" name="form-pre" th:action th:object="${facilityreq}" method="post">
+												<table>
+													<th:block th:unless="${#lists.isEmpty(facility.prefacilityList)}">
+														<tbody>
+															<tr th:each="pre, preStat : ${facility.prefacilityList}">
+																<th:block th:if="${pre.hidden} == false">
+																	<td style="width: 13vw"><label class="form-check-label" th:for="prefacilityList[__${preStat.index}__].available" th:text="${pre.name}"></label></td>
+																	<td class="dtable-checkbox"><input class="form-check-input" type="checkbox" th:field="${facility.prefacilityList[__${preStat.index}__].available}"></td>
+																</th:block>
+															</tr>
+														</tbody>
+													</th:block>
+												</table>
+											</form>
+                                        </div>
+                                    </div>
+                                    <div class="preprocessing-table" style="float: left; width: 25%; padding-right: 2vw;">
+                                        <p>방지시설</p>
+                                        <div class="detail-table" style="margin-bottom: 2vh">
+                                            <form id="form-proof" name="form-proof" th:action th:object="${facilityreq}" method="post">
+												<table>
+													<th:block th:unless="${#lists.isEmpty(facility.prooffacilityList)}">
+														<tbody>
+															<tr th:each="proof, proofStat : ${facility.prooffacilityList}">
+																<th:block th:if="${proof.hidden} == false">
+																	<td style="width: 13vw"><label class="form-check-label" th:for="prooffacilityList[__${proofStat.index}__].available" th:text="${proof.name}"></label></td>
+																	<td class="dtable-checkbox"><input class="form-check-input" type="checkbox" th:field="${facility.prooffacilityList[__${proofStat.index}__].available}"></td>
+																</th:block>
+															</tr>
+														</tbody>
+													</th:block>
+												</table>
+											</form>
+                                        </div>
+                                    </div>
+                                    <div class="preprocessing-table" style="float: left; width: 25%; padding-right: 2vw;">
+                                        <p>후처리시설</p>
+                                        <div class="detail-table">
+                                            <form id="form-post" name="form-post" th:action th:object="${facilityreq}" method="post">
+												<table>
+													<th:block th:unless="${#lists.isEmpty(facility.postfacilityList)}">
+														<tbody>
+															<tr th:each="post, postStat : ${facility.postfacilityList}">
+																<th:block th:if="${post.hidden} == false">
+																	<td style="width: 13vw"><label class="form-check-label" th:for="postfacilityList[__${postStat.index}__].available" th:text="${post.name}"></label></td>
+																	<td class="dtable-checkbox"><input class="form-check-input" type="checkbox" th:field="${facility.postfacilityList[__${postStat.index}__].available}"></td>
+																</th:block>
+															</tr>
+														</tbody>
+													</th:block>
+												</table>
+											</form>
+                                        </div>
+                                    </div>
+                                    <div class="preprocessing-table" style="float: left; width: 25%; padding-right: 2vw;">
+                                        <p>탄소흡착시설</p>
+                                        <div class="detail-table" style="margin-bottom: 2vh">
+                                            <form id="form-carb" name="form-carb" th:action th:object="${facilityreq}" method="post">
+												<table>
+													<th:block th:unless="${#lists.isEmpty(facility.carbonfacilityList)}">
+														<tbody>
+															<tr th:each="carb, carbStat : ${facility.carbonfacilityList}">
+																<th:block th:if="${carb.hidden} == false">
+																	<td style="width: 13vw"><label class="form-check-label" th:for="carbonfacilityList[__${carbStat.index}__].available" th:text="${carb.name}"></label></td>
+																	<td class="dtable-checkbox"><input class="form-check-input" type="checkbox" th:field="${facility.carbonfacilityList[__${carbStat.index}__].available}"></td>
+																</th:block>
+															</tr>
+														</tbody>
+													</th:block>
+												</table>
+											</form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-2" style="height: 50%;">
+                            <div class="tab2-info" style="display: flex; width: 75vw;">
+                                <button class="dropdown-btn" >방지시설 선택</button> 
+                                <button class="tab2-info-table" id="show-result-btn">결과 조회</button>
+                            </div>
+                                <div class="tab2-info-table" style=" display: flex; flex-flow: row nowrap; overflow-x: scroll; gap: 5px; max-height: 35vh;">
+									<th:block th:if="${#lists.isEmpty(comList)}"> 조회된 결과가 없습니다.
+									</th:block>
+									<th:block th:unless="${#lists.isEmpty(comList)}">
+										<th:block th:each="c, cStat : ${comList}">
+											<div class="detail-table-unchecked">
+												<p style="font-size: 18px" name="combination-number" th:text="'No.'+${cStat.count}"></p>
+													<table>
+														<tbody>
+															<tr th:each="comb, combStat : ${c.combination}">
+																 <td th:Text="${comb.name}"></td>
+																 <td th:text="${comb.category}"></td>
+																 <td colspan="2" style="text-align:right;"
+																 	th:text="${comb.cost}"> 
+																 </td>
+															</tr>
+														</tbody>
+														<tbody>
+															<tr>
+																<td style="width: 45%;">희석배수결과</td>
+																<td style="width: 25%;" th:text="${c.dilutionFactor}"></td>
+																<td style="width: 19%;">단가총합</td>
+																<td th:text="${c.costTotal}"></td>
+															</tr>
+														</tbody>
+													</table>
+											</div>
+										</th:block>
+									</th:block>	
+                                </div> 
+                        </div>
+                        <div class="row-2" style="height: 100%;">
+                            <div class="tab2-info">
+                                <button class="dropdown-btn" > 조합 이미지</button>
+                            </div>
+                            <div class="tab2-info-table" style=" display: flex; flex-flow: row nowrap; padding: 0px 10px; overflow-x: scroll;" id="image-facility">
+                                <div class="comb-image">
+                                      <img src="" alt="선택된 조합이 없습니다." class="image_left" style="width: 100%; height: 75%;  padding: 10px 0px;" onclick="window.open(this.src)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="/js/predict.js" defer></script>
+        
+    </body>
+</html>

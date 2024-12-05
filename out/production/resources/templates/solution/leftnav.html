@@ -1,0 +1,45 @@
+<div class="leftmenu">
+  <!-- 사업장 조회 -->
+  <div class="lm-info1">
+    <button class="dropdown-btn">
+      사업장 조회<i class="bi bi-chevron-down"></i>
+    </button>
+  </div>
+  <div class="col-md-6" style="max-width: 100%">
+    <form class="form-inline">
+      <div class="form-group mr-2">
+        <input
+          id="company-search"
+          class="form-control"
+          type="search"
+          placeholder="사업장 명을 입력하세요"
+          aria-label="조회"
+          style="width: 18vw; height: 30px"
+        />
+      </div>
+      <button id="company-btn" class="btn company-search-btn" type="submit">
+        검색
+      </button>
+      <button id="reset-btn" class="btn reset-inputdata">초기화</button>
+    </form>
+    <ul id="suggestions"></ul>
+  </div>
+  <!-- <input type="hidden" id="allZero" name="allZero" th:value="${allZero}" /> -->
+  <div
+    id="zero-message"
+    th:style="${message != '' ? 'display:block;' : 'display:none;'}"
+    th:text="${message}"
+  ></div>
+
+  <!-- 배출구 선택 -->
+  <div class="lm-info2">
+    <button class="dropdown-btn">
+      공정 선택<i class="bi bi-chevron-down"></i>
+    </button>
+  </div>
+  <div class="lm-info2-table">
+    <table>
+      <tbody id="outlet-container"></tbody>
+    </table>
+  </div>
+</div>
