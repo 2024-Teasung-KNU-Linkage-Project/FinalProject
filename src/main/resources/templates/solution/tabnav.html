@@ -37,4 +37,14 @@
             link.classList.add("active");
         }
     });
+
+
+    document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", function () {
+            const spinner = document.getElementById("loading-spinner");
+            if (spinner) {
+                spinner.style.display = "flex";
+            }
+        });
+    });
 </script>

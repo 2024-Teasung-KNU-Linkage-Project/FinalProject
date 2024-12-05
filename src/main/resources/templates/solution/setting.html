@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="/css/page5.css">                   <!-- page5.css 추가 -->
         <link rel="stylesheet" href="/css/nav.css">                     <!-- nav.css 추가 -->
         <link rel="stylesheet" href="/css/header.css">                  <!-- header.css 추가 -->
+        <link rel="stylesheet" href="/css/loading.css">                 <!-- loading.css 추가 -->
         <link rel="stylesheet" type="text/css" href="/css/tab4.css">    <!-- tab4.css 추가 -->
         <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -27,6 +28,18 @@
         </script>
     </head>
     <body>
+
+        <!-- 로딩스피너 -->
+        <div id="loading-spinner" style="display: none;">
+            <div  class="spinner">
+                <div class="ring"></div>
+                <p>
+                    <span>loading...</span>
+                    <br>
+                    <span>데이터를 가져오고 있습니다</span>
+                </p>
+            </div>
+        </div>
         
         <nav th:replace="~{solution/header}"></nav>
         <!-- <nav th:replace="~{common/topnav}"></nav> -->
