@@ -1,0 +1,48 @@
+<nav>
+  <div class="header-container">
+    <div class="header-left">
+      <a class="homehref" href="/home">
+        <img src="../../img/tsei.png" alt="Tsei" />
+        <p>TAESUNG</p>
+      </a>
+    </div>
+    <div class="header-center">
+      <p>태성환경연구소 통합관리시스템</p>
+    </div>
+    <div class="header-right">
+      <!-- 사용자 정보 수정부분 !!로그인 기능완성 시 이부분 수정 필요!! -->
+      <i class="fas fa-bell"></i>
+      <i class="fas fa-cog"></i>
+      <p class="user-info" id="user-info">
+        tsei<i class="fa-solid fa-chevron-down no-border right-align"></i>
+      </p>
+    </div>
+  </div>
+</nav>
+
+<!-- 탭 부분 -->
+<!-- -->
+<nav>
+  <div class="header-tabs-container">
+    <div class="tab">
+      <a href="/arims/" onclick="activateTab(this)"
+        >실시간 악취 관제</a
+      >
+    </div>
+    <div class="tab">
+      <a href="http://219.249.140.29:12480/home" onclick="activateTab(this)"
+        >바람길 예측</a
+      >
+    </div>
+    <div class="tab">
+      <a
+        href="http://219.249.140.29:59081/soms/page3"
+        onclick="activateTab(this)"
+        >악취 예보</a
+      >
+    </div>
+    <div class="tab">
+      <a href="/soms/page5/input" onclick="activateTab(this)">솔루션</a>
+    </div>
+  </div>
+</nav>

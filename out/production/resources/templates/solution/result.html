@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>방지시설 예측</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- page5.css 추가 -->
+    <link rel="stylesheet" href="/css/page5.css" />
+    <!-- nav.css 추가 -->
+    <link rel="stylesheet" href="/css/nav.css" />
+    <!-- header.css 추가 -->
+    <link rel="stylesheet" href="/css/header.css" />
+    <!-- tab3.css 추가 -->
+    <link rel="stylesheet" type="text/css" href="/css/tab3.css" />
+
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/15c732f225.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var currentUrl = window.location.pathname;
+        var lastChar = currentUrl.charAt(currentUrl.length - 1);
+        var itemId = "item" + lastChar;
+        // var navItem = document.getElementById(itemId);
+        // navItem.classList.add("nav-item-on");
+      });
+    </script>
+  </head>
+  <body>
+    <nav th:replace="~{solution/header}"></nav>
+    <!-- <nav th:replace="~{common/topnav}"></nav> -->
+
+    <div class="contents">
+      <div th:replace="~{solution/leftnav}"></div>
+      <div class="container mt-5" style="margin-top: 0 !important">
+        <nav th:replace="~{solution/tabnav}"></nav>
+
+        <div class="tab-content mt-3" style="margin-top: 0 !important">
+          <div id="tab3" class="tab-pane active">
+            <div class="tab-pane-content">
+              <!-- 왼쪽 -->
+              <div id="tab3-left" class="tab-col">
+                <div class="grid-info">악취기여물질</div>
+                <div class="grid-component" id="grid-component-left">
+                  <!-- 표 -->
+                  <div class="table-component">
+                    <table>
+                      <thead class="table-head">
+                        <tr>
+                          <td class="factor-name">이름</td>
+                          <td class="value-width-4">실측값(ppm)</td>
+                          <td class="value-width-4">예측값(ppm)</td>
+                          <td class="value-width-4">수용성</td>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                  <!-- 항목별: 데이터베이스 내용 읽어와 표 생성-->
+                  <div
+                    class="table-component"
+                    th:each="category : ${odorCategories}"
+                  >
+                    <details open>
+                      <summary class="facility-category-name">
+                        ⋁
+                        <span th:text="${category.name}">CATEGORY</span>
+                      </summary>
+                      <table class="factor-table" id="NitrogenCompounds">
+                        <tbody>
+                          <tr th:each="rodor : ${category.result_Odors}">
+                            <td
+                              class="factor-name"
+                              th:text="${rodor.odor.name}"
+                            >
+                              NAME
+                            </td>
+                            <td class="value-width-4" th:text="${rodor.value}">
+                              VALUE
+                            </td>
+                            <td
+                              class="value-width-4"
+                              th:text="${#numbers.formatDecimal(rodor.expectedValue,1,2)}"
+                            >
+                              EXPECTED
+                            </td>
+                            <th:block th:if="${rodor.odor.waterSolubility.idx}">
+                              <td class="value-width-4">O</td>
+                            </th:block>
+                            <th:block
+                              th:unless="${rodor.odor.waterSolubility.idx}"
+                            >
+                              <td class="value-width-4">X</td>
+                            </th:block>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </details>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 중간 -->
+              <div id="tab3-center" class="tab-col">
+                <div class="grid-info">방해인자</div>
+                <div class="grid-component" id="grid-component-center">
+                  <!-- 표 -->
+                  <div class="table-component">
+                    <table>
+                      <thead class="table-head">
+                        <tr>
+                          <td class="factor-name">항목</td>
+                          <td class="value-width-6">실측값<br />(ppm)</td>
+                          <td class="value-width-6">예측값<br />(ppm)</td>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                  <!-- 항목별: 데이터베이스 내용 읽어와 표 생성-->
+                  <div class="table-component">
+                    <table class="factor-table">
+                      <tbody
+                        th:each="rinterference : ${resultResponse.result_Interferences}"
+                      >
+                        <tr>
+                          <td
+                            class="factor-name"
+                            th:text="${rinterference.interference.name}"
+                          >
+                            NAME
+                          </td>
+                          <td
+                            class="value-width-6"
+                            th:text="${rinterference.value}"
+                          >
+                            VALUE
+                          </td>
+                          <td
+                            class="value-width-6"
+                            th:text="${#numbers.formatDecimal(rinterference.expectedValue,1,2)}"
+                          >
+                            EXPECTED
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 오른쪽 위 -->
+              <div id="tab3-right-1" class="tab-col">
+                <div class="grid-info">예측 희석배수</div>
+                <div class="grid-component" id="grid-component-right-1">
+                  <table class="predict-factor-table">
+                    <tbody>
+                      <tr>
+                        <td class="fillColorTd" style="width: fit-content">
+                          이론적 희석배수
+                        </td>
+                        <td
+                          style="padding-right: 1.3vw"
+                          th:text="${resultResponse.theoreticalDillutionFactor}"
+                        >
+                          THEORETICAL
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="fillColorTd">목표 희석배수</td>
+                        <td
+                          style="padding-right: 1.3vw"
+                          th:text="${resultResponse.targetDillutionFactor}"
+                        >
+                          TARGET
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="fillColorTd">예측 희석배수</td>
+                        <td
+                          style="padding-right: 1.3vw"
+                          th:text="${#numbers.formatDecimal(resultResponse.expectedDillutionFactor, 1, 2)}"
+                        >
+                          EXPECTED
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- 오른쪽 중간 -->
+              <div id="tab3-right-2" class="tab-col">
+                <div class="grid-info">단가</div>
+                <div class="grid-component" id="grid-component-right-2">
+                  <div class="price-table">
+                    <!-- 시설별 단가  -->
+                    <div
+                      class="table-component"
+                      th:each="category : ${facilityCategories}"
+                    >
+                      <details open>
+                        <summary class="facility-category-name">
+                          ⋁ <span th:text="${category.name}">CATEGORY</span>
+                        </summary>
+                        <div class="price-detail-table">
+                          <table>
+                            <tbody>
+                              <tr
+                                th:each="rfacility : ${category.result_Facilities}"
+                              >
+                                <td
+                                  class="detail-left"
+                                  th:text="${rfacility.facility.name}"
+                                >
+                                  NAME
+                                </td>
+                                <td
+                                  class="detail-right"
+                                  th:text="${#numbers.formatInteger(rfacility.facility.calculatePrice(resultResponse.wind), 1, 'COMMA')}"
+                                >
+                                  PRICE
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </details>
+                    </div>
+                  </div>
+                  <!-- 총 단가 -->
+                  <table class="total-money-cal">
+                    <thead>
+                      <tr>
+                        <td id="total-money-left">
+                          <i
+                            class="fas fa-won-sign fa-lg"
+                            style="color: #1866ec"
+                          ></i>
+                        </td>
+                        <td id="total-money-center">합계</td>
+                        <td
+                          id="total-money-right"
+                          class="fillColorTd"
+                          th:text="${#numbers.formatInteger(resultResponse.sumPrices(), 1, 'COMMA')}"
+                        >
+                          TOTAL
+                        </td>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+
+              <!-- 오른쪽 아래 -->
+              <form method="post">
+                <div id="tab3-right-3" class="tab-col">
+                  <!-- 이 필드가 resultRequest.name에 매핑 -->
+                  <input
+                    type="hidden"
+                    id="nameField"
+                    name="name"
+                    th:field="${resultRequest.name}"
+                  />
+                  <!-- 회사명과 배출구명을 서버로 전송하기 위한 숨겨진 필드 -->
+                  <input type="hidden" id="fileName" name="fileName" value="" />
+
+                  <button
+                    name="storeIn"
+                    value="database"
+                    id="btn-left"
+                    class="tab3-btn btn-sm"
+                    onclick="storeDB()"
+                  >
+                    DB에 저장하기
+                  </button>
+                  <button
+                    name="storeIn"
+                    value="file"
+                    id="btn-right"
+                    class="tab3-btn btn-sm"
+                    onclick="storeFile()"
+                  >
+                    파일로 내보내기
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="/js/result.js" defer></script>
+    <script type="text/javascript" src="/js/page5.js" defer></script>
+  </body>
+</html>

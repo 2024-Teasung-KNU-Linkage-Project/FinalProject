@@ -1,0 +1,40 @@
+<!-- 탭 네비게이션 -->
+<nav class="tabnav">
+    <ul class="nav nav-tabs" style="width: 100%;">
+        <li class="nav-item" style="width: 200px;">
+            <a class="nav-link" href="/soms/page5/input">입력인자</a>
+        </li>
+        <li class="nav-item" style="width: 200px;">
+            <a class="nav-link" href="/soms/page5/predict">예측설비</a>
+        </li>
+        <li class="nav-item" style="width: 200px;">
+            <a class="nav-link" href="/soms/page5/result">결과</a>
+        </li>
+        <li class="nav-item" style="width: 200px;">
+            <a class="nav-link" href="/soms/page5/setting">설정</a>
+        </li>
+    </ul>
+</nav>
+
+<script>
+    $(document).ready(function() {
+        let path = window.location.pathname;
+        let pageName = path.split("/").pop();
+
+        if (pageName === "input") {
+            $("a[href='/soms/page5/predict']").addClass("disabled");
+            $("a[href='/soms/page5/result']").addClass("disabled");
+        }
+        else if (pageName === "predict") {
+            $("a[href='/soms/page5/result']").addClass("disabled");
+        } else {
+            $("a.nav-link").removeClass("disabled");
+        }
+    })
+
+    document.querySelectorAll(".nav-link").forEach((link) => {
+        if (link.href === window.location.href) {
+            link.classList.add("active");
+        }
+    });
+</script>

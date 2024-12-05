@@ -1,0 +1,35 @@
+package com.OdorPreventSystem.domain.solution;
+
+import com.OdorPreventSystem.domain.solution.entity.OdorPreventionFacility;
+import com.OdorPreventSystem.domain.solution.entity.OdorSubstance;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+
+import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.AccessLevel;
+
+@Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor(access=AccessLevel.PROTECTED, force=true)
+public class RemovalOdor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private final int idx;
+
+    @ManyToOne
+    @JoinColumn(name = "facility")
+    private final OdorPreventionFacility facility;
+
+    @ManyToOne
+    @JoinColumn(name = "odor")
+    private final OdorSubstance odor;
+
+}

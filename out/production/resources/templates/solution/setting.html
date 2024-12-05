@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>방지시설 예측</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/page5.css">                   <!-- page5.css 추가 -->
+        <link rel="stylesheet" href="/css/nav.css">                     <!-- nav.css 추가 -->
+        <link rel="stylesheet" href="/css/header.css">                  <!-- header.css 추가 -->
+        <link rel="stylesheet" type="text/css" href="/css/tab4.css">    <!-- tab4.css 추가 -->
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/15c732f225.js" crossorigin="anonymous"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var currentUrl = window.location.pathname;
+                var lastChar = currentUrl.charAt(currentUrl.length - 1);
+                var itemId = "item" + lastChar;
+                // var navItem = document.getElementById(itemId);
+                // navItem.classList.add("nav-item-on");
+            });
+        </script>
+    </head>
+    <body>
+        
+        <nav th:replace="~{solution/header}"></nav>
+        <!-- <nav th:replace="~{common/topnav}"></nav> -->
+
+        <div class="contents">
+            <div th:replace="~{solution/leftnav}"></div>
+            <div class="container mt-5" style="margin-top: 0 !important;">
+                <nav th:replace="~{solution/tabnav}"></nav>
+
+                <div class="tab-content mt-3" style="margin-top: 0 !important;">
+                    <div id="tab4" class="tab-pane active">
+                        <div class="tab-pane-content">
+                            <!-- 왼쪽 -->
+                            <div id="tab4-left" class="tab-col">
+                                <form method="post" th:object="${settingRequest}">
+                                    <div class="grid-info">
+                                        악취기여물질
+                                    </div>
+                                    <div class="grid-component searchfactor" id="grid-component-left">
+                                        <!-- 검색창 -->
+                                        <div class="search-bar">
+                                            <input type="text" id="search-bar" placeholder="검색창" style="width:22vw; font-size: 1.2rem;">
+                                        </div>
+                                        <!--성분 최소감지값 수용성 헤더 표 -->
+                                        <div class="table-component">
+                                            <table>
+                                                <thead class="table-head">
+                                                    <tr>
+                                                        <td class="factor-name">성분</td>
+                                                        <td class="value-width-6">최소<br>감지값(ppm)</td>
+                                                        <td class="value-width-6">수용성</td>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+
+                                        <div class="table-component" th:each="category : ${odorCategories}">
+                                            <details open>
+                                                <summary class="factor-category-name">⋁ 
+                                                    <th:block th:text="${category.name}">CATEGORY</th:block></summary>
+                                                    <table class="factor-table">
+                                                        <tbody> 
+                                                            <th:block th:each="odor : ${category.odors}">
+                                                                <tr>
+                                                                    <td class="factor-name" th:text="${odor.name}">NAME</td>
+                                                                    <input type="hidden" class="factor-input"
+                                                                    th:field="*{odorRequests[__${odor.idx-1}__].idx}"
+                                                                    th:value="${odor.idx}" />
+                                                                    <td class="value-width-6">
+                                                                        <input class="factor-input"
+                                                                        th:id="odorRequests__${odor.idx-1}__.threshold"
+                                                                        th:name="odorRequests[__${odor.idx-1}__].threshold"
+                                                                        th:value="${#numbers.formatDecimal(settingRequest.odorRequests[__${odor.idx-1}__].threshold, 1, 6)}">
+                                                                    </td>
+                                                                    <td class="value-width-6">
+                                                                        <select id="waterSolubility" th:field="*{odorRequests[__${odor.idx-1}__].waterSolubility}">
+                                                                            <th:block th:each="w : ${waterSolubilities}">
+                                                                                <th:block th:if="${w.idx} == 1">
+                                                                                    <option th:value="${w.idx}" th:text="O"
+                                                                                        th:selected="${odor.waterSolubility.idx} == ${w.idx}">
+                                                                                    </option>
+                                                                                </th:block>
+                                                                                <th:block th:if="${w.idx} == 0">
+                                                                                    <option th:value="${w.idx}" th:text="X"
+                                                                                        th:selected="${odor.waterSolubility.idx} == ${w.idx}">
+                                                                                    </option>
+                                                                                </th:block>
+                                                                            </th:block>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                            </th:block>
+                                                        </tbody> 
+                                                    </table>
+                                                </summary>
+                                            </details>
+                                        </div>
+                                    </div>
+                                    <!-- 저장 버튼 -->
+                                    <div class="tab4-info-table" style="height: 8vh; width: 25vw;">
+                                        <button name="update" value="odor">저장</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                                <!-- 중간 -->
+                            <div id="tab4-right" class="tab-col">
+                                <div class="grid-info-right">
+                                    방지시설</i>
+                                </div>
+                                <div class="tab4-info-table">
+                                    <div class="preprocessing-table" style="float: left; width: 50%; height: 50%; padding-right: 1vw;"
+                                         th:each="category : ${facilityCategories}">
+                                        <p th:text="${category.name}">CATEGORY</p>
+                                        <form method="post" th:object="${settingRequest}">
+                                            <div class="detail-table">
+                                                <div>
+                                                    <select th:id="selectbox+${category.idx}" name="selectbox" th:onchange="chageLangSelect([[${category.idx}]])">
+                                                        <option th:each="facility : ${category.facilities}" th:text="${facility.name}">FACILITY</option>
+                                                    </select>
+                                                </div>
+                                                <div th:id="select_facilities+${category.idx}">
+                                                    <div th:each="facility : ${category.facilities}"
+                                                         th:id="${facility.name}">
+                                                        <div class="cost">
+                                                            <table>
+                                                                <th>기본단가</th>
+                                                                <th>풍량에 따른 단가</th>
+                                                                <tr>
+                                                                    <input type="hidden"
+                                                                           th:field="*{facilityRequests[__${facility.idx-1}__].idx}"
+                                                                           th:value="${facility.idx}" />
+                                                                    <td>
+                                                                        <input type="text"
+                                                                               th:field="*{facilityRequests[__${facility.idx-1}__].basePrice}">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                               th:field="*{facilityRequests[__${facility.idx-1}__].priceByWind}"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <div class="effective">
+                                                            <table th:each="efficiency : ${facility.efficiencies}">
+                                                                <input type="hidden"
+                                                                       th:field="*{efficiencyRequests[__${efficiency.idx-1}__].idx}"
+                                                                       th:value="${efficiency.idx}" />
+                                                                <th class="component">제거물질</th>
+                                                                <th colspan="2">효율</th>
+                                                                <tr>
+                                                                    <td rowspan="3">
+                                                                        <th:block th:if="${category.idx} == 1 or ${category.idx} == 3">
+                                                                            <div th:each="ri : ${efficiency.removalInterferences}"
+                                                                                  th:text="${ri.interference.name}">
+                                                                                INTERFERENCE
+                                                                            </div>
+                                                                        </th:block>
+                                                                        <th:block th:if="${category.idx} == 2 or ${category.idx} == 4">
+                                                                            <div th:each="rs : ${efficiency.removalSolubilities}"
+                                                                                th:text="${rs.waterSolubility.name}">
+                                                                                WATERSOLUBILITY
+                                                                            </div>
+                                                                        </th:block>
+                                                                    </td>
+                                                                    <td>1회</td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                               th:field="*{efficiencyRequests[__${efficiency.idx-1}__].efficiency1}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>2회</td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                               th:field="*{efficiencyRequests[__${efficiency.idx-1}__].efficiency2}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>3회</td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                               th:field="*{efficiencyRequests[__${efficiency.idx-1}__].efficiency3}">
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab4-info-table" style="height: 7vh; width: 25vw;">
+                                                <button name="update" value="facility">저장</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="/js/page5.js" defer></script>
+   
+    </body>
+</html>
