@@ -3,7 +3,7 @@
 
 <mapper namespace="com.OdorPreventSystem.domain.mapper.OdorProofSystemMapper">
 
-	<select id="selectInpList" resultType="com.OdorPreventSystem.domain.solution.inputFactor.dto.InputFactorDto$Entity">
+	<select id="selectInpList" resultType="com.OdorPreventSystem.domain.solution.module.inputFactor.dto.InputFactorDto$Entity">
         select s.idx, s.name, threshold, waterSolubility, c.name as category
             from OdorSubstance s join OdorCategory c on category = c.idx;
 	</select>
@@ -12,17 +12,17 @@
 		select name from OdorCategory;
 	</select>
 	
-	<select id="selectInfList" resultType="com.OdorPreventSystem.domain.solution.inputFactor.dto.InterferenceFactorDto$Response">
+	<select id="selectInfList" resultType="com.OdorPreventSystem.domain.solution.module.inputFactor.dto.InterferenceFactorDto$Response">
 		select idx, name
 			from InterferenceFactor;
 	</select>
 
-	<select id="selectAddList" resultType="com.OdorPreventSystem.domain.solution.inputFactor.dto.AdditionalFeatureDto$Response">
+	<select id="selectAddList" resultType="com.OdorPreventSystem.domain.solution.module.inputFactor.dto.AdditionalFeatureDto$Response">
 		select idx, name
 			from AdditionalFeature;
 	</select>
 	
-	<select id="selectFacilityList" resultType="com.OdorPreventSystem.domain.solution.predict.dto.FacilityDto$Entity">
+	<select id="selectFacilityList" resultType="com.OdorPreventSystem.domain.solution.module.predict.dto.FacilityDto$Entity">
 		select idx as fac_idx, name, image as imagesrc, priority, requiredAdditional as requiredAdditionalFeature, basePrice as costBase, priceByWind as costByWind, category
 			from OdorPreventionFacility;
 	</select>
@@ -32,12 +32,12 @@
 			where #{idx}=idx;
 	</select>
 	
-	<select id="selectInfConditionByIdx" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.predict.dto.FacilityConditionDto$RefCondition">
+	<select id="selectInfConditionByIdx" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.module.predict.dto.FacilityConditionDto$RefCondition">
 		select interference as var1, operator as op, operand as var2 from InterferenceCondition
 			where InterferenceCondition.facility=(select idx from OdorPreventionFacility where idx=#{idx}); 
 	</select>
 	
-	<select id="selectInpConditionByIdx" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.predict.dto.FacilityConditionDto$RefCondition">
+	<select id="selectInpConditionByIdx" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.module.predict.dto.FacilityConditionDto$RefCondition">
 		select odor as var1, operator as op, operand as var2 from OdorCondition oc
 			where oc.facility=(select idx from OdorPreventionFacility where idx=#{idx}); 
 	</select>
@@ -47,7 +47,7 @@
 			where #{idx}=o.idx;
 	</select>
 	
-	<select id="selectTargetFactor" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.predict.dto.FacilityConditionDto$TargetFactor">
+	<select id="selectTargetFactor" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.module.predict.dto.FacilityConditionDto$TargetFactor">
 		select odor as inp_idx from RemovalOdor
 			where #{idx}=facility;
 	</select>
@@ -67,12 +67,12 @@
 			where waterSolubility=0;
 	</select>
 	
-	<select id="selectInfEff" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.predict.dto.FacilityEfficiency$InfEff">
+	<select id="selectInfEff" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.module.predict.dto.FacilityEfficiency$InfEff">
 		select interference as inf_idx, efficiency1, efficiency2, efficiency3 from RemovalEfficiency e join RemovalInterference on efficiency=e.idx
 			where #{idx}=e.facility;
 	</select>
 	
-	<select id="selectInpEff" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.predict.dto.FacilityEfficiency$InpEff">
+	<select id="selectInpEff" parameterType="Integer" resultType="com.OdorPreventSystem.domain.solution.module.predict.dto.FacilityEfficiency$InpEff">
 		select waterSolubility as target, efficiency1, efficiency2, efficiency3 from RemovalWaterSolubility join RemovalEfficiency e on efficiency=e.idx
 			where #{idx}=e.facility;
 	</select>
@@ -147,4 +147,128 @@
 		  AND car_code LIKE #{selectCar}
 		  AND date > #{lastQueryTime}
 	</select>
+
+
+	<!-- 사업체 데이터 -->
+	<select id="getPlaceComplaint" resultType="com.OdorPreventSystem.domain.complaint.dto.placeDataDTO">
+		SELECT lat AS latitude, lon AS longitude, id AS companyIndex, name, csv_filename AS csvFilename , odor
+		FROM company </select>
+	<!--사업체 화학 정보 데이터-->
+	<select id="getPlaceCsvContentById" resultType="com.OdorPreventSystem.domain.complaint.dto.chemicalDataDTO">
+		SELECT chemical_name AS chemicalName, chemical_value AS chemicalValue, msv
+		from company_csv WHERE company_id = #{companyIdex};
+	</select>
+
+
+	<!--OdorType데이터-->
+	<select id="getOdorType"  resultType="com.OdorPreventSystem.domain.complaint.dto.odorTypeDTO">
+		SELECT id as odorId, odorName FROM odor_type
+	</select>
+
+	<!--민원 데이터-->
+	<!--민원 table 모든 요소 -->
+	<select id="getComplaint" resultType="com.OdorPreventSystem.domain.complaint.dto.complaintDTO">
+		SELECT c.id AS complaintId, c.userName, c.contents AS context, c.province_city_name AS provinceCityName, c.postal_code AS postalCode, c.street_address AS streetAddress, c.lat AS latitude, c.lon AS longitude, c.wind_direction AS windDirection, c.wind_speed AS windSpeed, c.odor, c.odorintensity AS odorIntensity, c.date, o.odorName AS odorName
+		FROM complaint c LEFT JOIN odor_type o ON c.odor = o.Id
+		WHERE c.id =#{complaintId}
+	</select>
+
+	<!--민원 데이터 location 요소-->
+	<select id="getComplaintLocationDate" resultType="com.OdorPreventSystem.domain.complaint.dto.complaintLocationDateDTO">
+		SELECT id AS complaintID, lat AS latitude, lon AS longitude, date FROM complaint
+	</select>
+
+	<!--민원 검색을 위한 sql-->
+	<select id="getComplaintsByDateRangeAndOdor" resultType="com.OdorPreventSystem.domain.complaint.dto.complaintDTO">
+		SELECT
+		c.id AS complaintId,
+		c.userName,
+		c.contents AS context,
+		c.province_city_name AS provinceCityName,
+		c.postal_code AS postalCode,
+		c.street_address AS streetAddress,
+		c.lat AS latitude,
+		c.lon AS longitude,
+		c.wind_direction AS windDirection,
+		c.wind_speed AS windSpeed,
+		c.odor,
+		c.odorintensity AS odorIntensity,
+		c.date,
+		o.odorName AS odorName
+		FROM
+		complaint c
+		LEFT JOIN odor_type o ON c.odor = o.Id
+		WHERE
+		<if test="startDateTime != null and endDateTime != null">
+			<!--시작 날짜 마지막 날짜 존재 시 적용-->
+			c.date BETWEEN #{startDateTime} AND #{endDateTime}
+		</if>
+		<if test="startDateTime == null and endDateTime != null">
+			<!--시작 날짜 존재 안함, 마지막 날짜 존재 시 적용-->
+			c.date &lt;= #{endDateTime}
+		</if>
+		<if test="startDateTime != null and endDateTime == null">
+			<!--시작 날짜 존재, 마지막 날짜 존재 안함 시 적용-->
+			c.date &gt;= #{startDateTime}
+		</if>
+		<if test="startDateTime == null and endDateTime == null">
+			<!-- StartDateTime과 EndDateTime이 모두 null인 경우 필터링을 적용하지 않음 -->
+		</if>
+		<if test="odorName != null and odorName != ''">
+			<!--악취 종류가 존재하면 적용-->
+			AND o.odorName = #{odorName}
+		</if>
+		<if test="odorIntensity != null and odorIntensity !=''">
+			<!--악취 세기가 존재하면 적용-->
+			AND c.odorIntensity = #{odorIntensity}
+		</if>
+	</select>
+
+	<select id="getComplaintsByDateRangeAndOdorByOdorId" resultType="com.OdorPreventSystem.domain.complaint.dto.complaintDTO">
+		SELECT
+		c.id AS complaintId,
+		c.userName,
+		c.contents AS context,
+		c.province_city_name AS provinceCityName,
+		c.postal_code AS postalCode,
+		c.street_address AS streetAddress,
+		c.lat AS latitude,
+		c.lon AS longitude,
+		c.wind_direction AS windDirection,
+		c.wind_speed AS windSpeed,
+		c.odor,
+		c.odorintensity AS odorIntensity,
+		c.date,
+		o.odorName AS odorName
+		FROM
+		complaint c
+		LEFT JOIN odor_type o ON o.Id = #{odorId}
+		WHERE
+		<if test="startDateTime != null and endDateTime != null">
+			<!--시작 날짜 마지막 날짜 존재 시 적용-->
+			c.date BETWEEN #{startDateTime} AND #{endDateTime}
+		</if>
+		<if test="startDateTime == null and endDateTime != null">
+			<!--시작 날짜 존재 안함, 마지막 날짜 존재 시 적용-->
+			c.date &lt;= #{endDateTime}
+		</if>
+		<if test="startDateTime != null and endDateTime == null">
+			<!--시작 날짜 존재, 마지막 날짜 존재 안함 시 적용-->
+			c.date &gt;= #{startDateTime}
+		</if>
+		<if test="startDateTime == null and endDateTime == null">
+			<!-- StartDateTime과 EndDateTime이 모두 null인 경우 필터링을 적용하지 않음 -->
+		</if>
+		<if test="odorId != null and odorId != ''">
+			<!--악취 종류가 존재하면 적용-->
+			AND c.odor = #{odorId}
+		</if>
+		<if test="odorIntensity != null and odorIntensity !=''">
+			<!--악취 세기가 존재하면 적용-->
+			AND c.odorIntensity = #{odorIntensity}
+		</if>
+	</select>
+
 </mapper>
+
+

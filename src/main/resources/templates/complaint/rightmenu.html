@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+</head>
+
+
+<body>
+    <div th:fragment="rightmenu" id="rightmenu">
+        <div class="contents-rightmenu">
+            <div class="menu-info right-menu-info">
+                <p>민원 신고</p>
+            </div>
+            <div class="menu-info" style="margin:10px 0px;">
+                <p>접수</p>
+            </div>
+            <div class="complaint-send">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td colspan="4">
+                                <label for="complaint-send-date" style="color:gray;" >신고일시:</label>
+                                <input type="date" id="complaint-send-date" name="compalaint-send-date">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <label for="complaint-send-LanLng" style="color:gray;">좌표(위도/경도):</label>
+                                <input type="text" id="complaint-send-LanLng" name="compliant-send-LanLng">
+                             </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <label for="complaint-send-odorType" style="color:gray;">악취 종류/세기:</label>
+                                <input type="text" id="complaint-send-odorType" name="complaint-send-odorType" style="width:167px;">
+                            </td>
+
+                            <td colspan="1">
+                                <input type="text" id="complaint-send-odorIntensity" name="complaint-send-odorIntensity" style="width:30px;">
+                            </td>
+                        </tr>
+                    <tbody>
+                </table>
+                <button id="complaint-send-button">접수하기</button>
+            </div>
+
+            <div class="menu-info">
+                <p>처리결과</p>
+            </div>
+            <div class="complaint-done">
+                <p>진행단계</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>접수완료</td>
+                            <td>현상방문</td>
+                            <td>원인분석</td>
+                            <td>민원통보</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="arrow"></div></td>
+                            <td><div class="arrow"></div></td>
+                            <td><div class="arrow"></div></td>
+                            <td><div class="arrow"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>결과</p>
+                <textarea id="result-textarea" name="result-textarea" readonly></textarea>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/static/tseiweb/js/complaintWeb/rightmenu.js}"></script>
+</body>
+
+</html>
