@@ -1,6 +1,5 @@
 package com.OdorPreventSystem.domain.solution.entity;
 
-import com.OdorPreventSystem.domain.solution.setting.entity.WaterSolubility;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

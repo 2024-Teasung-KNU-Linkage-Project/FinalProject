@@ -68,8 +68,8 @@
   z-index: 9;
   position: fixed;
   left: 310px;
-  top: 100px;
-  margin-top: 60px;
+  top: 180px;
+  margin-top: 20px;
 }
 
 .selection {
@@ -90,6 +90,7 @@
 }
 
 .div-filter {
+
 }
 
 .table-filter {
@@ -116,7 +117,7 @@
 }
 
 .searchTab {
-  margin-top: 1000px;
+  margin-top: 1100px;
 }
 
 /* 조회 버튼 */
@@ -258,7 +259,7 @@ color: white;
   position: fixed;
   left: 310px;
   top: 50px;
-  margin-top: 60px;
+  margin-top: 105px;
 }
 
 .marker-filter {
@@ -292,7 +293,7 @@ color: white;
   position: fixed;
   left: 590px;
   top: 50px;
-  margin-top: 60px;
+  margin-top: 105px;
 }
 
 .marker-filter2 {

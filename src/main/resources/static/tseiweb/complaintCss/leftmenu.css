@@ -1,0 +1,264 @@
+.weather {
+    color: white;
+    padding: 10px;
+    font-size: 1.8rem;
+}
+
+.table-to-weather {
+    width: 100%;
+    background-color: #30497d;
+}
+
+.weather h1 {
+    margin: 10px 0px;
+    padding: 0;
+    font-size: 1.8rem;
+}
+
+#nowDate {
+    font-size: 1.8rem;
+    margin: 10px 0px;
+    padding: 0;
+}
+
+.weather .h1-clock {
+    margin: 10px 0px;
+    padding: 0;
+    font-size: 1.8rem;
+}
+
+#weather-container {
+    font-size: 13px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.menu-info {
+    background-color: #1a305f;
+    border-radius: 3px 3px 3px 3px;
+    color: #98a9bc;
+    font-size: 15px;
+    padding: 7px 0px;
+}
+
+.menu-info span {
+    padding-left: 10px;
+}
+
+.menu-info i {
+    float: right;
+    margin-right: 15px;
+}
+
+#nowPosition {
+    color: white;
+    margin-top: 20px;
+    font-size: 15px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+.complaint-detail1 {
+    display: flex;
+    color: white;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 15px;
+    background-color: #1a305f;
+    gap: 5px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+
+.complaint-detail1-table-container {
+    font-size: 12px;
+    align-items: center;
+    background-color: #1a305f;
+    gap: 5px;
+    width: 80%;
+}
+
+.complaint-detail1-table {
+    margin-top: 10px;
+    font-size: 13px;
+    border: 1px solid #fff;
+    border-collapse: collapse;
+    gap: 10px;
+    padding: 5px;
+    padding-bottom: 0;
+    width: 120%;
+
+
+}
+
+.complaint-detail1-table thead td {
+    text-align: center;
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+    height: 25px;
+
+}
+
+.complaint-detail1-table tbody td {
+    border: 1px solid white;
+    text-align: center;
+    color: white;
+    border-left: 1px solid white;
+    font-size: 15px;
+    height: 25px;
+
+}
+
+.complaint-detail2 {
+    display: flex;
+    color: white;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 15px;
+    background-color: #1a305f;
+    padding-top: 15px;
+    gap: 5px;
+    padding-left: 10px;
+    padding-bottom: 15px;
+}
+
+.complaint-detail2-1-table-container {
+    align-items: center;
+    background-color: #1a305f;
+    width: 95%;
+    gap: 30px;
+    max-height: 70px;
+    overflow-y: auto;
+}
+
+.complaint-detail2-1-table {
+    margin-top: 10px;
+    border-collapse: collapse;
+    padding-bottom: 0;
+    width: 100%;
+}
+
+.complaint-detail2-1-table thead td {
+    font-size: 13px;
+    border: 1px solid white;
+
+}
+
+.complaint-detail2-1-table thead tr {
+    border: 1px solid white;
+    text-align: center;
+
+}
+
+.inRadius {
+    width: 70%;
+
+
+}
+
+.matching {
+    width: 70%;
+    font-size: 15px;
+}
+
+
+.radius-select-container {
+    height: 100%;
+    color: #98a9bc;
+    font-size: 10px;
+    padding-left: 5px;
+}
+
+.radius-select-container .radius-distance-select {
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: left;
+    padding: 5px 10px;
+    padding-bottom: 0;
+}
+
+.radius-select-container .radius-distance-select input[type=radio] {
+    display: none;
+}
+
+.radius-select-container .radius-distance-select input[type=radio]+label {
+    display: inline-block;
+    cursor: pointer;
+    height: 12px;
+    width: 26px;
+    border: 0;
+    line-height: 12px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 0;
+    margin: 0px 10px;
+}
+
+.radius-select-container .radius-distance-select input[type=radio]+label {
+    background-color: #fff;
+    color: #236fff;
+}
+
+.radius-select-container .radius-distance-select input[type=radio]:checked+label,
+.radius-select-container .radius-distance-select input[type=radio]:checked~input[type=radio]+label {
+    background-color: #236fff;
+    color: #fff;
+}
+
+.radius-select-container .radius-distance-text {
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: left;
+    font-size: 8px;
+    margin: 0px 10px;
+    gap: 40px;
+}
+
+.radius-select-container .radius-angle-select {
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: left;
+    padding: 5px 10px;
+    padding-bottom: 0;
+}
+
+.radius-select-container .radius-angle-select input[type=radio] {
+    display: none;
+}
+
+.radius-select-container .radius-angle-select input[type=radio]+label {
+    display: inline-block;
+    cursor: pointer;
+    height: 12px;
+    width: 50px;
+    border: 0;
+    line-height: 12px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 0;
+    margin: 5px 10px;
+}
+
+.radius-select-container .radius-angle-select input[type=radio]+label {
+    background-color: #fff;
+    color: #236fff;
+}
+
+.radius-select-container .radius-angle-select input[type=radio]:checked+label,
+.radius-select-container .radius-angle-select input[type=radio]:checked~input[type=radio]+label {
+    background-color: #236fff;
+    color: #fff;
+}
+
+.radius-select-container .radius-angle-text {
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: left;
+    font-size: 8px;
+    margin-left: 5px;
+    gap: 63px;
+}

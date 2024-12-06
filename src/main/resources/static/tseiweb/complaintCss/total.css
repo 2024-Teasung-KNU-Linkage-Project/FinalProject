@@ -1,0 +1,53 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+header {
+    background-color: #1a305f;
+    padding: 0;
+}
+
+nav {
+    background-color: #1a305f;
+    padding: 0;
+}
+
+#main-content {
+    display: flex;
+
+}
+
+aside {
+    padding: 5px;
+}
+
+#leftmenu,
+#rightmenu {
+    flex: 0 0 10vw;
+    background-color: #0B173B;
+    height: 100%;
+}
+
+#leftmenu {
+    z-index: 1;
+}
+
+#rightmenu {
+    z-index: 1;
+    position: absolute;
+    right: 0;
+}
+
+#main {
+    flex: 1;
+}

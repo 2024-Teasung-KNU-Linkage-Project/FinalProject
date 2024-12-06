@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:src="@{/static/tseiweb/common/js/date_weather.js}"></script>
+    <link rel="stylesheet" href="/static/tseiweb/complaintCss/leftmenu.css">
+</head>
+
+<body>
+    <div th:fragment="leftemnu" id="leftmenu">
+        <div class="contents-leftmenu">
+            <div class="weather">
+                <table class="table-to-weather">
+                    <thead>
+                        <tr>
+                            <td colspan='1' id="weather-container">
+                                <h1>날씨 정보 가져오는 중...</h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span id="nowDate" style="font-size:12px;">-</span>
+                                <span class="h1-clock" ></span>
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="menu-info">
+                <span> 지도 중심 좌표</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <h1 id="nowPosition">Ulsan</h1>
+            <div class="menu-info" style="margin:0px 0px 5px;">
+                    <span>반경설정</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                    <div class="radius-select-container">
+                        <div>기본 반경(Km)</div>
+                        <div class="radius-distance-select">
+                            <input
+                                type="radio"
+                                id="radius-btn6"
+                                name="radius"
+                                value="5000"
+                            /><label for="radius-btn6"></label>
+                            <input
+                                type="radio"
+                                id="radius-btn5"
+                                name="radius"
+                                value="4000"
+                            /><label for="radius-btn5"></label>
+                            <input
+                                type="radio"
+                                id="radius-btn4"
+                                name="radius"
+                                value="3000"
+                            /><label for="radius-btn4"></label>
+                            <input
+                                type="radio"
+                                id="radius-btn3"
+                                name="radius"
+                                value="2000"
+                            /><label for="radius-btn3"></label>
+                            <input
+                                type="radio"
+                                id="radius-btn2"
+                                name="radius"
+                                value="1000"
+                            /><label for="radius-btn2"></label>
+                            <input
+                                type="radio"
+                                id="radius-btn1"
+                                name="radius"
+                                value="500"
+                            /><label for="radius-btn1"></label>
+                        </div>        
+                        <div class="radius-distance-text">
+                            <div>5</div>
+                            <div>4</div>
+                            <div>3</div>
+                            <div>2</div>
+                            <div>1</div>
+                            <div>.5</div>
+                            <div>0</div>
+                        </div>
+        
+                        <div>기본 부채꼴의 너비(°)</div>
+                        <div class="radius-angle-select">
+                            <input
+                                type="radio"
+                                id="radius-btn14"
+                                name="radius2"
+                                value="120"
+                            /><label for="radius-btn14"></label>
+                            <input 
+                                type="radio" 
+                                id="radius-btn13" 
+                                name="radius2" 
+                                value="90" 
+                            /><label for="radius-btn13"></label>
+                            <input
+                                type="radio"
+                                id="radius-btn12"
+                                name="radius2"
+                                value="60"
+                            /><label for="radius-btn12"></label>
+                            <input
+                                type="radio"
+                                id="radius-btn11"
+                                name="radius2"
+                                value="30"
+                            /><label for="radius-btn11"></label>
+                        </div>
+                        <div class="radius-angle-text">
+                            <div>120</div>
+                            <div>90</div>
+                            <div>60</div>
+                            <div>30</div>
+                            <div>0</div>
+                        </div>
+                    </div>
+            <div class="menu-info" style="margin:0px 0px 5px;">
+                <span>민원 추적</span>
+                <i class="fa-solid fa-chevron-down" style="margin-left:185px;"></i>
+            </div>
+                <div class = "complaint-detail1">
+                    <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                    <p>신고 일시</p> 
+                    <p id="leftTime" style="margin-right:10px;" >--</p>
+                    </div>
+                <div class ="complaint-detail1-table-container">
+                    <table class="complaint-detail1-table">
+                        <thead>
+                            <tr>
+                                <td>지점명</td>
+                                <td>좌표(위도/경도)</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="placeName">-</td>
+                                <td id="leftLatLng">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="complaint-detail1-table">
+                        <thead>
+                            <tr>
+                                <td>악취 종류</td>
+                                <td>악취 세기</td>
+                                <td>풍향/풍속</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="odorkind">-</td>
+                                <td id="odorstrength">-</td>
+                                <td id="winddir_sp">--</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                <div class="complaint-detail2">
+                    <p>반경 내 사업장</p>
+                        <div class="complaint-detail2-1-table-container" style="margin:5px 0px;">
+                            <table class="complaint-detail2-1-table" id="odor_correct_table">
+                                <thead>
+                                    <tr>
+                                        <td  rowspan="4">사업장 명</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inRadius" style="padding: 3px 0px">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inRadius"style="padding: 3px 0px">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inRadius"style="padding: 3px 0px">-</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    <p>부채꼴 내 일치 사업장</p>
+                        <div class="complaint-detail2-1-table-container" style="margin:5px 0px;">
+                            <table class="complaint-detail2-1-table" id="wind_odor_correct_table">
+                                    <thead>
+                                        <tr>
+                                            <td rowspan="4">사업장 명</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="matching" style="padding: 3px 0px">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="matching" style="padding: 3px 0px">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="matching" style="padding: 3px 0px">-</td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                        </div>
+                    </div>
+            <div class="custom-scrollbar"></div>
+        </div>
+    </div>
+  <script th:src="@{/static/tseiweb/js/complaintWeb/leftmenu.js}"></script>
+</body>
+
+</html>

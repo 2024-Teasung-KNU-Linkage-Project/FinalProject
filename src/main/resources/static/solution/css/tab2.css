@@ -1,0 +1,185 @@
+.tab2-info {
+  margin-top: 0vh;
+}
+.tab2-info .dropdown-btn {
+  color: white;
+  width: 75vw;
+  padding: 0.5vw;
+  padding-left: 1vw;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: #1a305f;
+  border: none;
+  cursor: pointer;
+  text-align: justify;
+}
+.tab2-info .bi {
+  padding-left: 12.5vw;
+}
+.tab2-info-table {
+  width: 75vw;
+  background-color: #03153a;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 2vh;
+  height: 90%;
+  margin: 0 !important;
+  text-align: center;
+}
+.container-mt-5 {
+  height: 87vh;
+  margin-top: 0 !important;
+  padding-top: 3vh;
+}
+.container-mt-5 .row {
+  /*예측설비- 방지시설 row*/
+  height: 55%;
+}
+.container-mt-5 .row .col-3 {
+  height: 90%;
+  width: 18vw;
+}
+.tab2-info-table thead {
+  color: #99aabc !important;
+}
+.tab2-info-table thead td {
+  /* width: 150px; */
+  padding-bottom: 5px;
+  background-color: #1a305f;
+  border: 1px solid #99aabc;
+}
+.tab2-info-table tbody td {
+  border: 1px solid #99aabc;
+  padding: 3px;
+}
+.tab2-info-table p {
+  padding-left: 5px;
+  padding-bottom: 3px;
+  color: #99aabc;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: left;
+  pointer-events: none;
+}
+.tab2-info-table .detail-table {
+  background-color: #1a305f;
+  height: 28vh;
+  border-radius: 5px 5px 5px 5px;
+  overflow-y: scroll;
+  padding: 1vw;
+  text-align: left;
+}
+.tab2-info-table .detail-table table {
+  height: 100%;
+  white-space: nowrap;
+  border-collapse: collapse;
+}
+.tab2-info-table .detail-table td {
+  border: 0px;
+}
+
+.fillColorTd {
+  background-color: royalblue;
+}
+.dtable-checkbox {
+  text-align: right;
+}
+.dtable-checkbox input {
+  position: static !important;
+}
+.tab2-info-table .detail-table-checked {
+  border: 2px solid royalblue;
+  background-color: #1a305f;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.tab2-info-table .detail-table-checked p {
+  color: royalblue !important;
+}
+.tab2-info-table .detail-table-checked td {
+  border: 0px;
+  text-align: left;
+}
+.tab2-info-table .detail-table-unchecked {
+  margin-top: 5px;
+  background-color: #1a305f;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px 5px 5px 5px;
+  min-width: 24vw;
+  max-width: 100%;
+  max-height: 260px;
+  overflow: auto;
+}
+.tab2-info-table .detail-table-unchecked td {
+  border: 0px;
+  text-align: left;
+}
+.tab2-info-table .detail-table-unchecked table {
+  pointer-events: none;
+}
+.tab2-info-table button {
+  border-radius: 5px 5px 5px 5px;
+  color: white;
+  margin-left: 10px;
+  float: right;
+  background-color: #03153a;
+  border-color: white;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 1vh 3vw;
+}
+.total_money_cal {
+  position: fixed;
+  right: 80px;
+  bottom: 25px;
+}
+
+#show-result-btn {
+  width: 8vw;
+  padding: 10px;
+  font-size: medium;
+  border: 2px solid #fff;
+  border-radius: 5px;
+}
+
+.comb-image {
+  display: flex;
+  flex-direction: column;
+}
+
+.facility-state {
+  margin: 5px;
+  width: 450px;
+  border: 1px solid royalblue;
+}
+
+.facility-state p {
+  text-align: center;
+  padding: 5px;
+}
+
+.factor-table {
+  width: 230px;
+}
+
+.factor-component {
+  width: 150px;
+  padding: 3px;
+}
+
+.factor-value {
+  width: 80px;
+  padding: 3px;
+}
+
+.tab2-title {
+  font-size: 17px !important;
+}

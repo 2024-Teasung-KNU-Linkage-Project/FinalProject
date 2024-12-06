@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    <script th:src="@{/tseiweb/js/topnav.js}"></script>
+</head>
+<body>
+    <div th:fragment="topnav" id="topnav">
+          <!-- 버튼 부분 -->
+    <nav>
+        <div class="topnav-buttons-container">
+            <button class="button" onclick="navigateTo('http://localhost:8081/arims/',this)">악취 차량 추적</button>
+            <button class="button" onclick="navigateTo('http://localhost:8081/complaint/',this)">민원 발생 추적</button>
+            <button class="button" onclick="navigateTo('/omsmode',this)">OMS</button>
+        </div>
+    </nav>
+</div>
+
+</body>
+
+
+</html>

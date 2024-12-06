@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/tseiweb/complaintCss/loading.css"/>
+    <link rel="stylesheet" href="/static/tseiweb/complaintCss/customMarker.css"/>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
+        ({ key: "AIzaSyCzxSPknsO4ZKNEf55FpCQl1Ukm0k7shQw", v: "weekly" });</script>
+    <meta charset="UTF-8">
+
+</head>
+
+<body>
+    <ul class="notifications"></ul>
+        <div id="complaintModal" class="modal3">
+
+            <div class = "modal_3-content">
+                <div id="complaintModalText" class="modalText">민원 내용</div>
+                <table id="complaintTable">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div></div>
+            </div>
+        </div>
+            <div id="analysisModal" class="modal1">
+                <div class = "modal_1-content">
+                    <div id="palceModalText" class="modalText" style="font-size:15px;">일치 사업장 상세 정보</div>
+                    <table id="analysisTable">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <table id="integratedTable">
+                        <thead>
+                        </thead>
+                    </table>
+                    <div></div>
+                </div>
+            </div>
+    <div th:fragment="main" id="main">
+        <div class="contents">
+            <div id="map"></div>
+        </div>
+        <div class="div-filter">
+            <table class="table-filter">
+                <tbody>
+                    <tr>
+                        <td class="td-mw-date">
+                            <label>시작 날짜:</label>
+                                <input type="date" id="selectStartDate" name="startDate">
+                            <label>마지막 날짜:</label>
+                                <input type="date" id="selectEndDate" name="endDate" >
+                                <select id="selectOdorType" name="odorType">
+                                    <!-- 악취 종류가 여기에 동적으로 추가됩니다 -->
+                                  </select>
+                                <select id="selectOdorIntensity" name="odorIntensity">
+                                    <option value="" disabled selected>세기</option>
+                                    <!-- 세기 옵션이 여기에 추가됩니다 -->
+                                </select>
+                            <button id="searchComplaint" ><i class="fas fa-arrow-right"></i></button>
+                            <button id="resetComplaint" > <i class="fas fa-sync-alt"></i></button>
+                            <label class="switch">
+                                <input type="checkbox" id="marker_hidden_slide" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
+                    </tr>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

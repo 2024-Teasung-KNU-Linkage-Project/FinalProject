@@ -1,0 +1,309 @@
+#main {
+    display: flex;
+    flex: auto;
+}
+
+#map {
+    background-color: whitesmoke;
+    /* height: 86vh;
+    width: 69vw; */
+    height: calc(100vh - 50px);
+    /* 메뉴 높이 등 제외한 화면 높이 계산 */
+    width: calc(100vw - 20vw);
+    /* 좌우 메뉴 제외한 맵 너비 계산 */
+    margin: 0;
+}
+
+.modal_3-content {
+    position: relative;
+    /* 자식 요소인 닫기 버튼을 상대적으로 배치하기 위해 필요합니다. */
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #aaa;
+    /* 기본 색상 */
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    /* 기본 상태의 포인터 커서 */
+    background: none;
+    /* 버튼의 기본 배경 제거 */
+    border: none;
+    /* 버튼의 기본 테두리 제거 */
+    z-index: 1000;
+    /* 모달 내용보다 위에 배치되도록 */
+}
+
+.closeButton:hover {
+    color: red;
+    /* Hover 시 색상 변경 */
+    cursor: pointer;
+    /* Hover 시 포인터 커서 */
+}
+
+
+#complaintModal {
+    background-color: #0B173B;
+    display: none;
+    position: fixed;
+    overflow: auto;
+    z-index: 5;
+    left: 20%;
+    top: 17%;
+    width: 500px;
+    height: 500px;
+    margin: 0px;
+    font-size: 15px;
+    color: white;
+    gap: 50px;
+}
+
+#complaintModalText {
+    margin: 20px;
+    font-size: 20px;
+
+}
+
+#complaintTable {
+    margin: 20px;
+    width: 90%;
+    height: 90%;
+    font-size: medium;
+    border: 1px solid #7e8d9e;
+    border-collapse: collapse;
+}
+
+#complaintTable tr td {
+    border: 1px solid #7e8d9e;
+    padding: 8px;
+}
+
+#analysisModal {
+    background-color: #0B173B;
+    display: none;
+    position: fixed;
+    overflow: auto;
+    z-index: 5;
+    left: 20%;
+    top: 17%;
+    width: 500px;
+    height: 600px;
+    margin: 0px;
+    font-size: 15px;
+    color: white;
+    padding: 20px 20px;
+}
+
+#analysisTable {
+    width: 460px;
+    text-align: center;
+
+}
+
+#analysisTable thead {
+    background-color: #1a305f;
+
+}
+
+#analysisTable tbody td {
+    border-bottom: 1px solid #7e8d9e;
+
+}
+
+#elementOdorType {
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.table-row {
+    cursor: pointer;
+}
+
+.detailRow tbody td {
+    border-bottom: 1px solid #7e8d9e;
+    padding: 5px;
+}
+
+.close {
+    float: right;
+    cursor: pointer;
+}
+
+.selectDate {
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: white;
+    border-radius: 3px;
+    padding-right: 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+}
+
+.div-filter {
+    position: absolute;
+    margin-left: 5px;
+    margin-top: 10px;
+
+}
+
+.div-filter label {
+    font-weight: bold;
+    padding-left: 5px;
+
+}
+
+/* 슬라이더 주변 상자 */
+.table-filter {
+    border-collapse: collapse;
+
+}
+
+.td-complaint-date {
+    background-color: white;
+}
+
+.td-mw-date {
+    background-color: white;
+    display: flex;
+    gap: 5px;
+    margin: 5px 0px;
+    /* 요소 사이의 간격 설정 */
+    border-radius: 3px;
+}
+
+.td-mw-date p {
+    background-color: white;
+    font-size: 10px;
+    font-weight: bold;
+    color: black;
+    padding: 7px 5px 0px;
+    border-radius: 3px;
+    margin-left: 3px;
+}
+
+.td-mw-date label,
+.td-mw-date input,
+.td-mw-date select,
+.td-mw-date button {
+    margin: 7px 0;
+    /* 요소 간의 여백 설정 */
+    font-size: 14px;
+}
+
+.td-mw-date button {
+    cursor: pointer;
+    border: none;
+    background-color: #98a9bc;
+    color: black;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    margin: 5px 5px 5px 0px;
+}
+
+/* 슬라이더 주변 상자 */
+.switch {
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 60px;
+    height: 20px;
+    font-size: 10px;
+}
+
+/* HTML 기본 체크박스 숨기기 */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* 슬라이더 효과 */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+
+}
+
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 0px;
+    bottom: 0px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+}
+
+/* 둥근스위치버튼 스타일 및 효과 */
+.slider.round {
+    border-radius: 34px;
+    width: 40px;
+    height: 20px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+button:hover {
+    background-color: #0077ff;
+    /* 버튼 배경색 변경 */
+    color: #ffffff;
+    /* 버튼 텍스트 색상 변경 */
+    border-color: #0077ff;
+    /* 버튼 테두리 색상 변경 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+    .td-mw-date {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .td-mw-date input[type=date],
+    .td-mw-date select {
+        max-width: 100%;
+    }
+
+    .td-mw-date button {
+        width: 100%;
+        margin-top: 5px;
+    }
+}

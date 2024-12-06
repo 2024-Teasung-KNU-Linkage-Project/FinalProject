@@ -1,11 +1,11 @@
 package com.OdorPreventSystem.domain.util;
 
-import com.OdorPreventSystem.domain.solution.setting.respository.WaterSolubilityRepository;
+import com.OdorPreventSystem.domain.solution.module.setting.respository.WaterSolubilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import com.OdorPreventSystem.domain.solution.setting.dto.WaterSolubilityRequest;
+import com.OdorPreventSystem.domain.solution.module.setting.dto.WaterSolubilityRequest;
 
 @Component
 public class WaterSolubilityByIdConverter implements Converter<String, WaterSolubilityRequest> {
