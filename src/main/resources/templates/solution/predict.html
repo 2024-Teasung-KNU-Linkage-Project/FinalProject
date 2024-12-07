@@ -316,11 +316,12 @@
 												<p style="font-size: 18px" name="combination-number" th:text="'No.'+${cStat.count}"></p>
 													<table>
 														<tbody>
-															<tr th:each="comb, combStat : ${c.combination}">
+                                                            <tr th:each="comb : ${c.combination}" class="facility-row" th:attr="data-fac-id=${comb.name}">
+
 																 <td th:Text="${comb.name}"></td>
 																 <td th:text="${comb.category}"></td>
 																 <td colspan="2" style="text-align:right;"
-																 	th:text="${comb.cost}"> 
+																 	th:text="${comb.cost}">
 																 </td>
 															</tr>
 														</tbody>
@@ -354,6 +355,37 @@
         </div>
         <script type="text/javascript" src="/static/solution/js/input.js" defer></script>
         <script type="text/javascript" src="/static/solution/js/predict.js" defer></script>
-        
+
+         <script>
+             document.addEventListener("DOMContentLoaded", function () {
+                 console.log("JavaScript is running...");
+
+                 // 조합별 컨테이너 가져오기
+                 const combinations = document.querySelectorAll('.detail-table-unchecked');
+
+                 combinations.forEach((combination, index) => {
+                     console.log(`Processing combination No.${index + 1}`);
+
+                     const rows = combination.querySelectorAll('.facility-row'); // 조합 내의 행 가져오기
+                     const seen = new Set(); // 중복 확인을 위한 Set
+
+                     rows.forEach(row => {
+                         console.log(`Row HTML: ${row.outerHTML}`);
+                         console.log(`Facility ID: ${row.dataset.facId}`);
+                         const facId = row.dataset.facId; // 시설 ID 가져오기
+                         console.log(`Checking facility ID: ${facId}`);
+
+                         if (seen.has(facId)) {
+                             console.log(`Duplicate found for ID: ${facId}. Hiding row.`);
+                             row.style.display = 'none'; // 중복된 항목 숨기기
+                         } else {
+                             console.log(`Adding ID to seen set: ${facId}`);
+                             seen.add(facId); // 처음 발견된 시설 ID 추가
+                             row.style.display = ''; // 보이는 상태 유지
+                         }
+                     });
+                 });
+             });
+         </script>
     </body>
 </html>

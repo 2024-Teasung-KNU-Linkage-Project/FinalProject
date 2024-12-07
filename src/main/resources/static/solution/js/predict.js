@@ -50,7 +50,7 @@ function handleClick(event) {
         //코드는 디자인상 필요하시면 바꾸시면 됩니다. 리스트 인덱스 필요하면 위에 function(index, item)에 index 쓰세요
 
         // 이미지 요소 추가
-        facImg += '<img src="/img/' + item + '"';
+        facImg += '<img src="/static/solution/img/' + item + '"';
         facImg +=
           'alt="No image" class="image_left" style="width: 100%; height: 55%; padding: 10px 0px;" ';
         facImg += 'onclick="window.open(this.src)">';
