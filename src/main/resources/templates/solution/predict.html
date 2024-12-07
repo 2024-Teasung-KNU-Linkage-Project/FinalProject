@@ -316,7 +316,7 @@
 												<p style="font-size: 18px" name="combination-number" th:text="'No.'+${cStat.count}"></p>
 													<table>
 														<tbody>
-                                                            <tr th:each="comb : ${c.combination}" class="facility-row" th:attr="data-fac-id=${comb.name}">
+                                                            <tr th:each="comb : ${c.combination}" class="facility-row" th:attr="data-fac-name=${comb.name}">
 
 																 <td th:Text="${comb.name}"></td>
 																 <td th:text="${comb.category}"></td>
@@ -370,17 +370,14 @@
                      const seen = new Set(); // 중복 확인을 위한 Set
 
                      rows.forEach(row => {
-                         console.log(`Row HTML: ${row.outerHTML}`);
-                         console.log(`Facility ID: ${row.dataset.facId}`);
-                         const facId = row.dataset.facId; // 시설 ID 가져오기
-                         console.log(`Checking facility ID: ${facId}`);
 
-                         if (seen.has(facId)) {
-                             console.log(`Duplicate found for ID: ${facId}. Hiding row.`);
+                         const facName = row.dataset.facName; // 시설 이름 가져오기
+
+
+                         if (seen.has(facName)) {
                              row.style.display = 'none'; // 중복된 항목 숨기기
                          } else {
-                             console.log(`Adding ID to seen set: ${facId}`);
-                             seen.add(facId); // 처음 발견된 시설 ID 추가
+                             seen.add(facName); // 처음 발견된 시설 ID 추가
                              row.style.display = ''; // 보이는 상태 유지
                          }
                      });
