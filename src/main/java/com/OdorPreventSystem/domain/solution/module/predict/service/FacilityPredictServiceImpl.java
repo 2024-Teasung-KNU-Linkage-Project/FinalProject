@@ -2,11 +2,9 @@ package com.OdorPreventSystem.domain.solution.module.predict.service;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import com.OdorPreventSystem.domain.solution.module.predict.FacilityPredictService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -233,11 +231,13 @@ public class FacilityPredictServiceImpl implements FacilityPredictService {
 							res.setImagesrc(SearchImagesrc(tmp.getFac_idx())); // 시설이미지 
 							resList.add(res);
 						}
+
+
 						//조합정보 설정
-					comb.setCombination(resList); 
-					comb.setCostTotal(costSum);// 조합의 총 비용 설정
-					comb.setDilutionFactor((int)Math.round(postp.getDilutionFactor())); //희석배수 설정
-					comlist.add(comb);
+						comb.setCombination(resList);
+						comb.setCostTotal(costSum);// 조합의 총 비용 설정
+						comb.setDilutionFactor((int)Math.round(postp.getDilutionFactor())); //희석배수 설정
+						comlist.add(comb);
 					}
 				}
 				
