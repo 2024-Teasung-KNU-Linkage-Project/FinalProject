@@ -77,12 +77,12 @@ class Modal {
     // 초기 위치 변경
     if (this.modalId == "complaintModal") {
       this.modal.style.display = "block"
-      this.modal.style.left = "60%";
-      this.modal.style.top = "17%";
+      this.modal.style.left = "320px";
+      this.modal.style.top = "275px";
     } else if (this.modalId == "analysisModal") {
       this.modal.style.display = "block"
-      this.modal.style.left = "20%";
-      this.modal.style.top = "17%";
+      this.modal.style.left = "860px";
+      this.modal.style.top = "165px";
     }
 
     //모달 on/off 버튼이 on일때만 보이도록하기

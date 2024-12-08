@@ -44,11 +44,11 @@
                 </div>
             </div>
     <div th:fragment="main" id="main">
-        <div class="contents">
+        <div class="complaint-contents">
             <div id="map"></div>
         </div>
         <div class="div-filter">
-            <table class="table-filter">
+            <table class="complaint-table-filter">
                 <tbody>
                     <tr>
                         <td class="td-mw-date">
@@ -56,13 +56,18 @@
                                 <input type="date" id="selectStartDate" name="startDate">
                             <label>마지막 날짜:</label>
                                 <input type="date" id="selectEndDate" name="endDate" >
-                                <select id="selectOdorType" name="odorType">
-                                    <!-- 악취 종류가 여기에 동적으로 추가됩니다 -->
-                                  </select>
-                                <select id="selectOdorIntensity" name="odorIntensity">
-                                    <option value="" disabled selected>세기</option>
-                                    <!-- 세기 옵션이 여기에 추가됩니다 -->
-                                </select>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-mw-date" style="padding-left: 10px;">
+                            <select id="selectOdorType" name="odorType">
+                                <!-- 악취 종류가 여기에 동적으로 추가됩니다 -->
+                            </select>
+                            <select id="selectOdorIntensity" name="odorIntensity">
+                                <option value="" disabled selected>세기</option>
+                                <!-- 세기 옵션이 여기에 추가됩니다 -->
+                            </select>
                             <button id="searchComplaint" ><i class="fas fa-arrow-right"></i></button>
                             <button id="resetComplaint" > <i class="fas fa-sync-alt"></i></button>
                             <label class="switch">

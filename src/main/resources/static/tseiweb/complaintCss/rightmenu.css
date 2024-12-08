@@ -1,3 +1,17 @@
+.complaint-table td {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* label과 input 사이 간격 */
+    padding: 5px 3px;
+}
+
+.complaint-table td input {
+    flex: 1;
+    max-width: 100%; /* 가로 공간 초과 방지 */
+    padding: 8px; /* 입력 필드 내부 여백 */
+    box-sizing: border-box;
+}
+
 .complaint-send {
     text-align: right;
     margin-left: auto;
@@ -5,9 +19,16 @@
 }
 
 .complaint-send input {
-    width: 200px;
+    width: 100px;
     border-radius: 3px;
     height: 30px;
+}
+
+.complaint-send label {
+    font-size: 14px;
+    color: gray;
+    display: block;
+    margin-bottom: 5px;
 }
 
 .complaint-send button {

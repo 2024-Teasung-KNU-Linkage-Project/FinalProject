@@ -1,6 +1,6 @@
 .contents-leftmenu {
     background-color: #0B173B;
-    height: calc(100vh - 150px);
+    height: calc(100vh - 149px);
     width: 300px;
     min-width: 300px;
     padding: 15px;
@@ -9,7 +9,7 @@
 
 #nowPosition {
   color: white;
-  margin-top: 10px;
+  margin: 10px 5px 20px 10px;
   font-size: 15px;
 }
 .menu-info {
@@ -128,7 +128,7 @@
 
 .radius-select-container {
     height: 100%;
-  background-color: #0a1339;
+    background-color: #0a1339;
     color: #fff;
     font-size: 10px;
     padding-top: 5px;

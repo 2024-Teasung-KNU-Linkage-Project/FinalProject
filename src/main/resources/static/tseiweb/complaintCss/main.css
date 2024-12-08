@@ -1,3 +1,9 @@
+.complaint-contents {
+    width: 100%;
+    height: calc(100vh - 149px);
+    display: inline-flex;
+}
+
 #main {
     display: flex;
     flex: auto;
@@ -5,12 +11,8 @@
 
 #map {
     background-color: whitesmoke;
-    /* height: 86vh;
-    width: 69vw; */
-    height: calc(100vh - 50px);
-    /* 메뉴 높이 등 제외한 화면 높이 계산 */
-    width: calc(100vw - 20vw);
-    /* 좌우 메뉴 제외한 맵 너비 계산 */
+    width: 100%;
+    height: 100%;
     margin: 0;
 }
 
@@ -51,10 +53,10 @@
     position: fixed;
     overflow: auto;
     z-index: 5;
-    left: 20%;
-    top: 17%;
+    left: 320px;
+    top: 275px;
     width: 500px;
-    height: 500px;
+    height: 520px;
     margin: 0px;
     font-size: 15px;
     color: white;
@@ -87,14 +89,11 @@
     position: fixed;
     overflow: auto;
     z-index: 5;
-    left: 20%;
-    top: 17%;
+    left: 860px;
+    top: 165px;
     width: 500px;
-    height: 600px;
-    margin: 0px;
-    font-size: 15px;
+    height: fit-content;
     color: white;
-    padding: 20px 20px;
 }
 
 #analysisTable {
@@ -175,8 +174,7 @@
     display: flex;
     gap: 5px;
     margin: 5px 0px;
-    /* 요소 사이의 간격 설정 */
-    border-radius: 3px;
+    padding: 0px 5px;
 }
 
 .td-mw-date p {

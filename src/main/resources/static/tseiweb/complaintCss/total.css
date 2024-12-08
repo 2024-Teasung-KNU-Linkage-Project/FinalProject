@@ -24,7 +24,7 @@ nav {
 
 #main-content {
     display: flex;
-
+    height: calc(100vh - 149px);
 }
 
 aside {
@@ -39,13 +39,24 @@ aside {
 }
 
 #leftmenu {
-    z-index: 1;
+    min-width: 300px;
+    overflow-y: scroll;
+}
+/* 스크롤 안보이게 */
+#leftmenu::-webkit-scrollbar {
+  display: none;
 }
 
 #rightmenu {
-    z-index: 1;
-    position: absolute;
-    right: 0;
+    z-index: 10;
+    position: absolute; /* 필요하다면 relative로 수정 */
+    top: 165px;
+    right: 20px;
+    width: 300px;
+    height: 395px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
 }
 
 #main {
