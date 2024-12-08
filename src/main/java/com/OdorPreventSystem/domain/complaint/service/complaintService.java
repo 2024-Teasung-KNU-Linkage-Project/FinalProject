@@ -26,6 +26,11 @@ public interface complaintService {
     // 악취 종류 이름 Get 로직
     public List<odorTypeDTO> getOdorType() throws Exception;
 
+    //민원 저장 로직
+    public void saveComplaint(complaintDTO complaint) throws Exception;
+
+    public Integer getOdorIdByName(String odorName) throws Exception;
+
     // 지도 중심좌표기준으로 특정 반경 내 민원을 들고 오는 service **필요하면 주석 해제
     // public List<complaintDTO> getComplaintwithRadius(
     // double centerLngitude, double centerLatitude, double radius) throws

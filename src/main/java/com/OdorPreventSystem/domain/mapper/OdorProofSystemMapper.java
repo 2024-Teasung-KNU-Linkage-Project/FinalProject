@@ -111,10 +111,18 @@ public interface OdorProofSystemMapper {
 			@Param("odorId") Long odorId,
 			@Param("odorIntensity") String odorIntensity) throws Exception;
 
+
+	//민원 저장 mapper
+	public void insertComplaint(complaintDTO complaint);
+
 	// 악취 종류 이름 mapper
 	public List<odorTypeDTO> getOdorType() throws Exception;
 
 	public String getOdorNameById(@Param("odorId") Integer odorId) throws Exception;
+
+	public Integer getOdorIdByName(@Param("odorName") String odorName) throws  Exception;
+
+
 
 	// 지도 중심 좌표를 기준으로 특정 반경 내 "민원 정보들"을 가져오는 mapper>>지역별로 들고오는 민원 기능
 	// public List<complaintDTO> getComplaintwithRadius(
