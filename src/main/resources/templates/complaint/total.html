@@ -3,14 +3,9 @@
 <!-- HTML5 문서 타입 선언 및 HTML 문서의 루트 요소 시작, 문서의 언어는 영어로 설정 -->
 <head>
     <meta charset ="UTF-8"/>
-    <!-- 문서의 문자 인코딩을 UTF-8로 설정 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- 화면의 크기에 따라 웹페이지가 적절히 대응할 수 있도록 뷰포트 설정 -->
-
-    <!-- jQuery 라이브러리 로드 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    
     <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
     <!-- CSS 파일들 로드 -->
     <link rel="stylesheet" href="/static/tseiweb/complaintCss/total.css"/>
@@ -34,32 +29,29 @@
 </head>
 
 <body>
-    <!-- 웹 페이지의 body 시작 -->
-    <div id="container">
-        <header th:replace="~{complaint/header :: header}" id="header"></header>
-        <!-- header 영역: header.js와 header.css를 통해 동적으로 콘텐츠가 로드되고 스타일이 적용됨 -->
-        <nav th:replace="~{common/topnav :: topnav}" id="topnav"></nav>
-        <!-- 상단 내비게이션 영역: topnav.js와 topnav.css를 통해 동적으로 콘텐츠가 로드되고 스타일이 적용됨 -->
-        <div id="loading-anim">
-            <div class="center">
-                <div class="ring"></div>
-                    <p>
-                        <span>loading...</span>
-                        <br>
-                        <span id="process-bar"></span>
-                        <br>
-                        <span style="color: red;">중지를 원하면 ESC를 누르십시오.</span>
-                    </p>
-            </div>
+    <header th:replace="~{complaint/header :: header}" id="header"></header>
+    <!-- header 영역: header.js와 header.css를 통해 동적으로 콘텐츠가 로드되고 스타일이 적용됨 -->
+    <nav th:replace="~{common/topnav :: topnav}" id="topnav"></nav>
+    <!-- 상단 내비게이션 영역: topnav.js와 topnav.css를 통해 동적으로 콘텐츠가 로드되고 스타일이 적용됨 -->
+    <div id="loading-anim">
+        <div class="center">
+            <div class="ring"></div>
+                <p>
+                    <span>loading...</span>
+                    <br>
+                    <span id="process-bar"></span>
+                    <br>
+                    <span style="color: red;">중지를 원하면 ESC를 누르십시오.</span>
+                </p>
         </div>
-        <div id="main-content">
-            <aside th:replace="~{complaint/leftmenu}" id="leftmenu"></aside>
-            <!-- 왼쪽 메뉴 영역: leftmenu.js와 leftmenu.css를 통해 동적으로 콘텐츠가 로드되고 스타일이 적용됨 -->
-            <main th:replace="~{complaint/main}" id="main"></main>
-            <!-- 메인 콘텐츠 영역: main.js와 main.css를 통해 콘텐츠가 로드되고 스타일이 적용됨 -->
-            <aside th:replace="~{complaint/rightmenu}" id="rightmenu"></aside>
-            <!-- 오른쪽 메뉴 영역:rightmenu.js와 rightmenu.css를 통해 동적으로 콘텐츠가 로드되고 스타일이 적용됨 -->
-        </div>
+    </div>
+    <div id="main-content">
+        <aside th:replace="~{complaint/leftmenu}" id="leftmenu"></aside>
+        <!-- 왼쪽 메뉴 영역: leftmenu.js와 leftmenu.css를 통해 동적으로 콘텐츠가 로드되고 스타일이 적용됨 -->
+        <main th:replace="~{complaint/main}" id="main"></main>
+        <!-- 메인 콘텐츠 영역: main.js와 main.css를 통해 콘텐츠가 로드되고 스타일이 적용됨 -->
+        <aside th:replace="~{complaint/rightmenu}" id="rightmenu"></aside>
+        <!-- 오른쪽 메뉴 영역:rightmenu.js와 rightmenu.css를 통해 동적으로 콘텐츠가 로드되고 스타일이 적용됨 -->
     </div>
 
 

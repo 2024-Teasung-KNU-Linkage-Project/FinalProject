@@ -7,19 +7,21 @@
 </head>
 
 <body>
+
 <div th:fragment="rightmenu" id="rightmenu">
     <div class="contents-rightmenu">
-        <div class="menu-info right-menu-info">
-            <p>민원 신고</p>
+        <div class="menu-info">
+            <span>민원 신고</span>
+            <i class="fa-solid fa-chevron-down"></i>
         </div>
 
         <div class="complaint-send">
-            <table>
+            <table class="complaint-table">
                 <tbody>
                 <!-- 날짜/시간 -->
                 <tr>
                     <td colspan="4">
-                        <label for="complaint-send-datetime" style="color:gray;">날짜/시간:</label>
+                        <label for="complaint-send-datetime">날짜/시간:</label>
                         <input type="datetime-local" id="complaint-send-datetime" name="complaint-send-datetime">
                     </td>
                 </tr>
@@ -27,7 +29,7 @@
                 <!-- 신고자 -->
                 <tr>
                     <td colspan="4">
-                        <label for="complaint-send-username" style="color:gray;">신고자:</label>
+                        <label for="complaint-send-username">신고자:</label>
                         <input type="text" id="complaint-send-username" name="complaint-send-username">
                     </td>
                 </tr>
@@ -35,21 +37,19 @@
                 <!-- 신고 내용 -->
                 <tr>
                     <td colspan="4">
-                        <label for="complaint-send-context" style="color:gray;">신고 내용:</label>
+                        <label for="complaint-send-context">신고 내용:</label>
                         <textarea id="complaint-send-context" name="complaint-send-context"></textarea>
                     </td>
                 </tr>
 
-                <!-- 위도 -->
+                <!-- 위도 및 경도 -->
                 <tr>
                     <td colspan="2">
-                        <label for="complaint-send-latitude" style="color:gray;">위도:</label>
+                        <label for="complaint-send-latitude">위도:</label>
                         <input type="text" id="complaint-send-latitude" name="complaint-send-latitude">
                     </td>
-
-                    <!-- 경도 -->
                     <td colspan="2">
-                        <label for="complaint-send-longitude" style="color:gray;">경도:</label>
+                        <label for="complaint-send-longitude">경도:</label>
                         <input type="text" id="complaint-send-longitude" name="complaint-send-longitude">
                     </td>
                 </tr>
@@ -57,7 +57,7 @@
                 <!-- 악취 종류 및 세기 -->
                 <tr>
                     <td colspan="2">
-                        <label for="complaint-send-odorType" style="color:gray;">악취 종류:</label>
+                        <label for="complaint-send-odorType">악취 종류:</label>
                         <select id="complaint-send-odorType" name="complaint-send-odorType">
                             <option value="" disabled selected>선택하세요</option>
                             <option value="1">음식물 쓰레기</option>
@@ -100,15 +100,14 @@
                             <option value="38">커피</option>
                         </select>
                     </td>
-
                     <td colspan="2">
-                        <label for="complaint-send-odorIntensity" style="color:gray;">악취 세기:</label>
+                        <label for="complaint-send-odorIntensity">악취 세기:</label>
                         <input type="text" id="complaint-send-odorIntensity" name="complaint-send-odorIntensity" style="width:50px;">
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <button id="complaint-send-button">접수하기</button>
+            <button id="complaint-send-button" class="btn-submit">접수하기</button>
         </div>
     </div>
 </div>
