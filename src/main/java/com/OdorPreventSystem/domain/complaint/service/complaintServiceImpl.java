@@ -1,7 +1,6 @@
 package com.OdorPreventSystem.domain.complaint.service;
 
 import com.OdorPreventSystem.domain.mapper.OdorProofSystemMapper;
-import com.OdorPreventSystem.domain.mapper.complaintMapper;
 import com.OdorPreventSystem.domain.complaint.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,6 +61,17 @@ public class complaintServiceImpl implements complaintService {
     @Override
     public List<odorTypeDTO> getOdorType() throws Exception {
         return mapper.getOdorType();
+    }
+
+    @Override
+    public void saveComplaint(complaintDTO complaint) throws Exception {
+        // 민원 데이터를 데이터베이스에 저장
+        mapper.insertComplaint(complaint);
+    }
+
+    @Override
+    public Integer getOdorIdByName(String odorName) throws Exception {
+        return mapper.getOdorIdByName(odorName);
     }
 
     // @Override

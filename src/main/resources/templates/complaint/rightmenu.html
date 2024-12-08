@@ -3,77 +3,118 @@
 
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <title>민원 신고</title>
 </head>
 
-
 <body>
-    <div th:fragment="rightmenu" id="rightmenu">
-        <div class="contents-rightmenu">
-            <div class="menu-info right-menu-info">
-                <p>민원 신고</p>
-            </div>
-            <div class="menu-info" style="margin:10px 0px;">
-                <p>접수</p>
-            </div>
-            <div class="complaint-send">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td colspan="4">
-                                <label for="complaint-send-date" style="color:gray;" >신고일시:</label>
-                                <input type="date" id="complaint-send-date" name="compalaint-send-date">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <label for="complaint-send-LanLng" style="color:gray;">좌표(위도/경도):</label>
-                                <input type="text" id="complaint-send-LanLng" name="compliant-send-LanLng">
-                             </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <label for="complaint-send-odorType" style="color:gray;">악취 종류/세기:</label>
-                                <input type="text" id="complaint-send-odorType" name="complaint-send-odorType" style="width:167px;">
-                            </td>
+<div th:fragment="rightmenu" id="rightmenu">
+    <div class="contents-rightmenu">
+        <div class="menu-info right-menu-info">
+            <p>민원 신고</p>
+        </div>
 
-                            <td colspan="1">
-                                <input type="text" id="complaint-send-odorIntensity" name="complaint-send-odorIntensity" style="width:30px;">
-                            </td>
-                        </tr>
-                    <tbody>
-                </table>
-                <button id="complaint-send-button">접수하기</button>
-            </div>
+        <div class="complaint-send">
+            <table>
+                <tbody>
+                <!-- 날짜/시간 -->
+                <tr>
+                    <td colspan="4">
+                        <label for="complaint-send-datetime" style="color:gray;">날짜/시간:</label>
+                        <input type="datetime-local" id="complaint-send-datetime" name="complaint-send-datetime">
+                    </td>
+                </tr>
 
-            <div class="menu-info">
-                <p>처리결과</p>
-            </div>
-            <div class="complaint-done">
-                <p>진행단계</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>접수완료</td>
-                            <td>현상방문</td>
-                            <td>원인분석</td>
-                            <td>민원통보</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><div class="arrow"></div></td>
-                            <td><div class="arrow"></div></td>
-                            <td><div class="arrow"></div></td>
-                            <td><div class="arrow"></div></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p>결과</p>
-                <textarea id="result-textarea" name="result-textarea" readonly></textarea>
-            </div>
+                <!-- 신고자 -->
+                <tr>
+                    <td colspan="4">
+                        <label for="complaint-send-username" style="color:gray;">신고자:</label>
+                        <input type="text" id="complaint-send-username" name="complaint-send-username">
+                    </td>
+                </tr>
+
+                <!-- 신고 내용 -->
+                <tr>
+                    <td colspan="4">
+                        <label for="complaint-send-context" style="color:gray;">신고 내용:</label>
+                        <textarea id="complaint-send-context" name="complaint-send-context"></textarea>
+                    </td>
+                </tr>
+
+                <!-- 위도 -->
+                <tr>
+                    <td colspan="2">
+                        <label for="complaint-send-latitude" style="color:gray;">위도:</label>
+                        <input type="text" id="complaint-send-latitude" name="complaint-send-latitude">
+                    </td>
+
+                    <!-- 경도 -->
+                    <td colspan="2">
+                        <label for="complaint-send-longitude" style="color:gray;">경도:</label>
+                        <input type="text" id="complaint-send-longitude" name="complaint-send-longitude">
+                    </td>
+                </tr>
+
+                <!-- 악취 종류 및 세기 -->
+                <tr>
+                    <td colspan="2">
+                        <label for="complaint-send-odorType" style="color:gray;">악취 종류:</label>
+                        <select id="complaint-send-odorType" name="complaint-send-odorType">
+                            <option value="" disabled selected>선택하세요</option>
+                            <option value="1">음식물 쓰레기</option>
+                            <option value="2">양파</option>
+                            <option value="3">계란(유황)</option>
+                            <option value="4">걸레(곰팡이)</option>
+                            <option value="5">마늘</option>
+                            <option value="6">동물 사체</option>
+                            <option value="7">하수구</option>
+                            <option value="8">소독제(워셔액)</option>
+                            <option value="9">농약</option>
+                            <option value="10">병원(알코올)</option>
+                            <option value="11">시큼한 냄새(식초)</option>
+                            <option value="12">파마약</option>
+                            <option value="13">쓰레기</option>
+                            <option value="14">금속가공(쇳물, 용접)</option>
+                            <option value="15">고무</option>
+                            <option value="16">다림질</option>
+                            <option value="17">플라스틱/비닐</option>
+                            <option value="18">생선 비린내</option>
+                            <option value="19">지린(공중화장실)냄새</option>
+                            <option value="20">약품 비린내</option>
+                            <option value="21">물 비린내</option>
+                            <option value="22">암모니아</option>
+                            <option value="23">절삭유(기름)</option>
+                            <option value="24">자동차 배기가스</option>
+                            <option value="25">아세톤 냄새</option>
+                            <option value="26">락스 냄새</option>
+                            <option value="27">석유류/신너</option>
+                            <option value="28">인쇄소</option>
+                            <option value="29">도시가스</option>
+                            <option value="30">닭/닭똥</option>
+                            <option value="31">소/소똥</option>
+                            <option value="32">돼지/돼지똥</option>
+                            <option value="33">동물사료 냄새</option>
+                            <option value="34">퇴비냄새</option>
+                            <option value="35">과일/채소</option>
+                            <option value="36">고기 굽는 냄새</option>
+                            <option value="37">향수</option>
+                            <option value="38">커피</option>
+                        </select>
+                    </td>
+
+                    <td colspan="2">
+                        <label for="complaint-send-odorIntensity" style="color:gray;">악취 세기:</label>
+                        <input type="text" id="complaint-send-odorIntensity" name="complaint-send-odorIntensity" style="width:50px;">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button id="complaint-send-button">접수하기</button>
         </div>
     </div>
-    <script th:src="@{/static/tseiweb/js/complaintWeb/rightmenu.js}"></script>
+</div>
+
+<!-- JavaScript 파일 참조 -->
+<script src="/static/tseiweb/js/complaintWeb/rightmenu.js"></script>
 </body>
 
 </html>

@@ -1,9 +1,12 @@
 package com.OdorPreventSystem.domain.complaint.controller;
 
+import com.OdorPreventSystem.domain.complaint.dto.complaintDTO;
 import com.OdorPreventSystem.domain.complaint.service.complaintService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -105,4 +108,30 @@ public class complaintRestController {
         return map;
     }
 
+
+    @PostMapping("/submit")
+    public Map<String, Object> submitComplaint(@RequestBody complaintDTO complaint) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            // 데이터 검증
+            if (complaint.getDate() == null || complaint.getLatitude() == null ||
+                    complaint.getLongitude() == null || complaint.getOdorName() == null ||
+                    complaint.getOdorIntensity() == null) {
+                response.put("status", HttpStatus.BAD_REQUEST.value());
+                response.put("message", "필수 데이터가 누락되었습니다.");
+                return response; // 에러 응답
+            }
+            Integer odorId = service.getOdorIdByName(complaint.getOdorName());
+            complaint.setOdor(odorId);
+            // 민원 데이터 저장 서비스 호출
+            service.saveComplaint(complaint);
+            response.put("status", "success");
+            response.put("message", "민원이 성공적으로 접수되었습니다.");
+        } catch (Exception e) {
+            log.error("민원 접수 오류", e);
+            response.put("status", "error");
+            response.put("message", "민원 접수 중 오류 발생");
+        }
+        return response;
+    }
 }

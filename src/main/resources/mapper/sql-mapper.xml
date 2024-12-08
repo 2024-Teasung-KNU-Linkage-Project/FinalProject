@@ -178,6 +178,12 @@
 		SELECT id AS complaintID, lat AS latitude, lon AS longitude, date FROM complaint
 	</select>
 
+	<select id="getOdorIdByName" parameterType="string" resultType="int">
+		SELECT id
+		FROM odor_type
+		WHERE odorName = #{odorName}
+	</select>
+
 	<!--민원 검색을 위한 sql-->
 	<select id="getComplaintsByDateRangeAndOdor" resultType="com.OdorPreventSystem.domain.complaint.dto.complaintDTO">
 		SELECT
@@ -223,6 +229,16 @@
 			AND c.odorIntensity = #{odorIntensity}
 		</if>
 	</select>
+
+
+	<!--접수 민원 DB에 insert-->
+	<insert id="insertComplaint" parameterType="com.OdorPreventSystem.domain.complaint.dto.complaintDTO">
+		INSERT INTO complaint (
+			username, contents, lat, lon, odor, odorintensity, date
+		) VALUES (
+					 #{userName}, #{context}, #{latitude}, #{longitude}, #{odor}, #{odorIntensity}, #{date}
+				 )
+	</insert>
 
 	<select id="getComplaintsByDateRangeAndOdorByOdorId" resultType="com.OdorPreventSystem.domain.complaint.dto.complaintDTO">
 		SELECT
