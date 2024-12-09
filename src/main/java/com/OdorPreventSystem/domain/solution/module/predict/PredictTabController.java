@@ -2,6 +2,7 @@ package com.OdorPreventSystem.domain.solution.module.predict;
 
 import java.util.List;
 
+import com.OdorPreventSystem.domain.solution.module.predict.dto.FacilityDto;
 import com.OdorPreventSystem.domain.solution.module.result.service.ResultPassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -92,12 +93,9 @@ public class PredictTabController {
     //시설 이미지 표시//
     @RequestMapping(params = "i")
     @ResponseBody
-    public List<String> getImages(@RequestParam int i){
-    	//System.out.println("image requested" + i);
-
-        // 요청된 인덱스에 해당하는 시설 이미지를 가져옴
-    	List<String> images = facilityPredictService.getImages(i-1);
-    	return images;
+    public List<FacilityDto.CombinationResponse> getImageAndFacs(@RequestParam int i) {
+        FacilityCombination combination = facilityPredictService.getCombination(i - 1);
+        return combination.getCombination();
     }
     
     //전처리시설 체크박스 처리//

@@ -938,16 +938,11 @@ public class FacilityPredictServiceImpl implements FacilityPredictService {
 		}
 		return 0;
 	}
-   //이미지 불러오기
-	@Override
-	public List<String> getImages(int index) {
-		List<String> images = new ArrayList<String>();
-		for(int i = 0; i < comList.get(index).getCombination().size(); i++) {
-			//System.out.println(comList.get(index).getCombination().get(i).getImagesrc());
-			images.add(comList.get(index).getCombination().get(i).getImagesrc());
-		}
-		return images;
-	}
+   //이미지 및 시설 상세 정보 불러오기
+   public List<FacilityDto.CombinationResponse> getImageAndFacs(int i) {
+	   // 선택된 조합에서 시설 정보 가져오기
+	   return comList.get(i).getCombination();
+   }
     // 해당조합 불러오기
 	@Override
 	public FacilityCombination getCombination(int i) {
