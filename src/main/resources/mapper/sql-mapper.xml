@@ -170,12 +170,14 @@
 	<select id="getComplaint" resultType="com.OdorPreventSystem.domain.complaint.dto.complaintDTO">
 		SELECT c.id AS complaintId, c.userName, c.contents AS context, c.province_city_name AS provinceCityName, c.postal_code AS postalCode, c.street_address AS streetAddress, c.lat AS latitude, c.lon AS longitude, c.wind_direction AS windDirection, c.wind_speed AS windSpeed, c.odor, c.odorintensity AS odorIntensity, c.date, o.odorName AS odorName
 		FROM complaint c LEFT JOIN odor_type o ON c.odor = o.Id
-		WHERE c.id =#{complaintId}
+		WHERE c.id =#{complaintId} AND c.date >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
 	</select>
 
 	<!--민원 데이터 location 요소-->
 	<select id="getComplaintLocationDate" resultType="com.OdorPreventSystem.domain.complaint.dto.complaintLocationDateDTO">
-		SELECT id AS complaintID, lat AS latitude, lon AS longitude, date FROM complaint
+		SELECT id AS complaintID, lat AS latitude, lon AS longitude, date
+		FROM complaint
+		WHERE date >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
 	</select>
 
 	<select id="getOdorIdByName" parameterType="string" resultType="int">
