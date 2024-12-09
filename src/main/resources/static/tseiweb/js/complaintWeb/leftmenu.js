@@ -51,6 +51,9 @@ function fillCoordinateTable(placeName, latitude, longitude, date) {
 
 //민원 추적 테이블 악취 종류 및 악취 세기 정보를 채우는 함수
 function fillOdorTable(kind, strength) {
+  if (strength > 5) {
+    strength = 5;
+  }
   document.getElementById("odorkind").innerHTML = kind;
   document.getElementById("odorstrength").innerHTML = strength;
 }

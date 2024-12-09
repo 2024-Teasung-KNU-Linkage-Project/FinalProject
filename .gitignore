@@ -136,3 +136,6 @@ build
 # Ignore .idea
 .idea/
 *.iml
+
+Dump_odorpreventionfacility.sql
+Dump_tracking.sql

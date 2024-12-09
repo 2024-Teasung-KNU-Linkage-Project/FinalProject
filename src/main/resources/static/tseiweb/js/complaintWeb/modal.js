@@ -146,8 +146,8 @@ class ComplaintModal extends Modal {
           <td>${complaint.odorName || "-"}  </td>
         </tr>
         <tr>
-          <td style="font-weight: bold; width: 180px;background-color: #1a305f;">악취 세기</td>
-          <td>${complaint.odorIntensity || "-"}</td>
+            <td style="font-weight: bold; width: 180px;background-color: #1a305f;">악취 세기</td>
+            <td>${complaint.odorIntensity > 5 ? 5 : complaint.odorIntensity || "-"}</td>
         <tr>
           <td style="font-weight: bold; width: 180px;background-color: #1a305f;">바람 방향/속도</td>
           <td>${windDir || "-"} / ${complaint.windSpeed || "-"}m/s</td>
