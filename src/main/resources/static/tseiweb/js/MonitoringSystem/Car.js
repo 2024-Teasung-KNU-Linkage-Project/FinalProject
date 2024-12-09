@@ -442,7 +442,7 @@ class Car {
 
     return new Promise((resolve) => {
       $.ajax({
-        url: "http://219.249.140.29:11234/arims/predict",
+        url: "",
         type: "POST",
         data: JSON.stringify(preprocessing),
         contentType: "application/json",
