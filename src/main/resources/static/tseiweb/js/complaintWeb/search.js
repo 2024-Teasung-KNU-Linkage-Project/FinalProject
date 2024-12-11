@@ -34,7 +34,7 @@ class Search {
     //악취 세기 검색을 위한 검색 옵션 추가
     const odorIntensitySelect = document.getElementById("selectOdorIntensity");
     odorIntensitySelect.innerHTML = '<option value="" disabled selected>세기</option>';
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 5; i++) {
       const option = document.createElement("option");
       option.value = i;
       option.textContent = i;
